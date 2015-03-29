@@ -24,7 +24,7 @@ public class RepositorioFilme {
         return filmes;
     }
 
-    public boolean filmeJaExiste(String titulo){
+    public boolean verificaSeJaExisteFilmePorTitulo(String titulo){
         for (Filme filme : filmes){
             if(filme.getTitulo().equalsIgnoreCase(titulo)){
                 return (true);
@@ -32,12 +32,29 @@ public class RepositorioFilme {
         }
         return (false);
     }
-    public Filme buscarFilme(String titulo){
+    public Filme buscarFilmePorTitulo(String titulo){
         for (Filme filme : filmes){
             if(filme.getTitulo().equalsIgnoreCase(titulo)){
                 return filme;
             }
         }
         return null;
-    } 
+    }
+
+    public boolean verificaSeJaExisteFilmePorCodigo(int codigo){
+        for(Filme filme : filmes){
+            if (filme.getCodigo() == codigo){
+                return (true);
+            }
+        }
+        return (false);
+    }
+    public Filme buscaFilmePorCodigo(int codigo){
+        for (Filme filme : filmes){
+            if (filme.getCodigo() == codigo){
+                return filme;
+            }
+        }
+        return null;
+    }
 }
