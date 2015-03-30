@@ -6,6 +6,6 @@ package CineUp;
 public class MainCineUp {
 
     public static void main(String[] args) {
-        
+
     }
 }
