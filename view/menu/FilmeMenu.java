@@ -11,8 +11,8 @@ public class FilmeMenu {
     public static String getOpcoes(){
 
         return ("\n===============================================\n" +
-                "\t1 - Cadastrar Pacientes\n" +
-                "\t2 - Listar Pacientes\n" +
+                "\t1 - Cadastrar Filmes\n" +
+                "\t2 - Listar Filmes\n" +
                 "\t0 - Voltar" +
                 "\n===============================================\n");
     }
