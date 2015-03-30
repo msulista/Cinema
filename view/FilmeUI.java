@@ -6,6 +6,7 @@ import util.Console;
 import util.DateUtil;
 import view.menu.FilmeMenu;
 
+import java.text.ParseException;
 import java.util.Date;
 
 
@@ -15,9 +16,13 @@ import java.util.Date;
 public class FilmeUI {
 
     private RepositorioFilme listaFilmes;
+    private Date dataInicio;
+    private Date dataFinal;
 
     public FilmeUI(RepositorioFilme listaFilmes) {
         this.listaFilmes = listaFilmes;
+        dataInicio = new Date();
+        dataFinal = new Date();
     }
 
     public void executar(){
@@ -52,9 +57,28 @@ public class FilmeUI {
             String titulo = Console.lerString("Titulo: ");
             String genero = Console.lerString("Genero: ");
             String sinopse = Console.lerString("Sinopse: ");
-           // Date dataInicio = DateUtil.main();
-            Date dataFinal; // = Console.lerString("Data de termino: ");
-            //listaFilmes.addFilmes(new Filme(codFilme, titulo, genero, sinopse, dataInicio, dataFinal));
+            String dataInicioString = Console.lerString("Data de inicio: ");
+            if(DateUtil.verificaData(dataInicioString)){
+                try {
+                    dataInicio = DateUtil.stringToDate(dataInicioString);
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }else {
+                System.out.println("Data inválida!!!");
+            }
+            String dataFinalString = Console.lerString("Data de termino: ");
+            if(DateUtil.verificaData(dataFinalString)){
+                try {
+                    dataFinal = DateUtil.stringToDate(dataFinalString);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }else {
+                System.out.println("Data inválida!!!");
+            }
+            listaFilmes.addFilmes(new Filme(codFilme, titulo, genero, sinopse, dataInicio, dataFinal));
             System.out.println("Filme " + titulo + "Foi cadastrado com sucesso!!!");
         }
     }

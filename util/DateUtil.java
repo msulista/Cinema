@@ -51,17 +51,18 @@ public class DateUtil {
     }
     
 
-    
-    public static void main(String args[]) throws ParseException{
-        String dataString = Console.scanString("Digite a data:");
-        if(verificaData(dataString))
-        {
-            Date data = stringToDate(dataString);
-            Date dataMaisCinco = addDays(data, 5);
-            System.out.println(dateToString(dataMaisCinco));
-            System.out.println(DateUtil.differenceInDays(dataMaisCinco,data));
+    /*
+        public static void main(String args[]) throws ParseException{
+            String dataString = Console.scanString("Digite a data:");
+            if(verificaData(dataString))
+            {
+                Date data = stringToDate(dataString);
+                Date dataMaisCinco = addDays(data, 5);
+                System.out.println(dateToString(dataMaisCinco));
+                System.out.println(DateUtil.differenceInDays(dataMaisCinco,data));
+            }
+            else
+                System.out.println("Data inválida");
         }
-        else
-            System.out.println("Data inválida");
-    }
+    */
 }
