@@ -21,8 +21,8 @@ public class FilmeUI {
 
     public FilmeUI(RepositorioFilme listaFilmes) {
         this.listaFilmes = listaFilmes;
-        dataInicio = new Date();
-        dataFinal = new Date();
+       // dataInicio = new Date();
+       // dataFinal = new Date();
     }
 
     public void executar(){
