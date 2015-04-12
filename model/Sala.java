@@ -5,19 +5,19 @@ package model;
  */
 public class Sala {
 
-    private int numero;
+    private String numero;
     private int qtdAssentos;
 
-    public Sala(int numero, int qtdAssentos) {
+    public Sala(String numero, int qtdAssentos) {
         this.numero = numero;
         this.qtdAssentos = qtdAssentos;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
@@ -28,4 +28,9 @@ public class Sala {
     public void setQtdAssentos(int qtdAssentos) {
         this.qtdAssentos = qtdAssentos;
     }
+
+    public void diminuiAssentos(){
+        this.qtdAssentos--;
+    }
+
 }

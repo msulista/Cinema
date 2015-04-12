@@ -49,9 +49,9 @@ public class RepositorioSecao {
         }
         return (false);            
     }
-    public  Secao buscaSecaoPorHorario(Date horario){
+    public  Secao buscaSecaoPorCodFilmeEHorario(int codFilme, Date horario){
         for (Secao secao : secoes){
-            if (secao.getHorario().equals(horario)){
+            if (secao.getFilme().getCodigo() == codFilme && secao.getHorario().equals(horario)){
                 return secao;
             }
         }

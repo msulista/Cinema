@@ -23,21 +23,20 @@ public class RepositorioSala {
         return salas;
     }
 
-    public boolean verificaSeJaExisteSalaPorNumero(int numero){
+    public boolean verificaSeJaExisteSalaPorNumero(String numero){
         for (Sala sala : salas){
-            if(sala.getNumero() == numero){
+            if(sala.getNumero().equalsIgnoreCase(numero)){
                 return (true);
             }
         }
         return (false);
     }
-    public Sala buscaSalaPorNumero(int numero){
+    public Sala buscaSalaPorNumero(String numero){
         for (Sala sala : salas){
-            if(sala.getNumero() == numero){
+            if(sala.getNumero().equalsIgnoreCase(numero)){
                 return sala;
             }
         }
         return null;
     }
-
 }

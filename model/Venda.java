@@ -7,10 +7,16 @@ public class Venda {
 
     private Secao secao;
     private int contadorAssentos;
+    private double valor;
 
-    public Venda(Secao secao, int contadorAssentos) {
+    public Venda(Secao secao, double valor) {
         this.secao = secao;
         this.contadorAssentos = contadorAssentos;
+        this.valor = valor;
+    }
+
+    public double getValor() {
+        return valor;
     }
 
     public Secao getSecao() {
@@ -28,4 +34,5 @@ public class Venda {
     public void setContadorAssentos(int contadorAssentos) {
         this.contadorAssentos = contadorAssentos;
     }
+
 }

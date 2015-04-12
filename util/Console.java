@@ -1,16 +1,11 @@
 package util;
 
-
 import java.util.Scanner;
 
 /**
- * Classe responsavel por conter os metodos de entradas externas
- * por meio da classe Scanner.
- *
- * Created by marcus.rodrigues on 07/03/2015.
+ * Created by marcus.rodrigues on 11/04/2015.
  */
 public class Console {
-
     /**
      * Metodo para entrada de dados do tipo String
      *
@@ -81,7 +76,7 @@ public class Console {
      * @param input Parametro do tipo Object com a mensagem informando tipo de dado de entrada.
      * @return ler.next() retorna a chamada do metodo de entrada da classe Scanner
      */
-    public static char lerChar(Object input){
+    public static char lerChar(Object input) {
 
         System.out.print(input);
         Scanner ler = new Scanner(System.in);

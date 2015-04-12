@@ -2,12 +2,15 @@ package view;
 
 import model.Filme;
 import model.Sala;
+import model.Secao;
 import repositorio.RepositorioFilme;
 import repositorio.RepositorioSala;
 import repositorio.RepositorioSecao;
 import util.Console;
+import util.DateUtil;
 import view.menu.SecaoMenu;
 
+import java.text.ParseException;
 import java.util.Date;
 
 /**
@@ -15,15 +18,15 @@ import java.util.Date;
  */
 public class SecaoUI {
     private RepositorioSecao listaSecoes;
-    private RepositorioFilme listaFilme;
-    private RepositorioSala listaSala;
+    private RepositorioFilme listaFilmes;
+    private RepositorioSala listaSalas;
     private Date horario;
 
-    public SecaoUI(RepositorioSecao listaSecoes, RepositorioFilme listaFilme, RepositorioSala listaSala) {
+    public SecaoUI(RepositorioSecao listaSecoes, RepositorioFilme listaFilmes, RepositorioSala listaSalas) {
 
         this.listaSecoes = listaSecoes;
-        this.listaFilme = listaFilme;
-        this.listaSala = listaSala;
+        this.listaFilmes = listaFilmes;
+        this.listaSalas = listaSalas;
     }
 
     public void executar(){
@@ -33,9 +36,11 @@ public class SecaoUI {
             opcao = Console.lerInt("Digite opção desejada: ");
             switch (opcao){
                 case SecaoMenu.OP_CADASTRAR:{
+                    cadastrarSecao();
                     break;
                 }
                 case SecaoMenu.OP_LISTAR: {
+                    listaSessoesCadastradas();
                     break;
                 }
                 case SecaoMenu.OP_VOLTAR: {
@@ -51,15 +56,50 @@ public class SecaoUI {
 
     public void cadastrarSecao(){
         System.out.println("Escolha um dos filme abaixo: ");
-        new FilmeUI(listaFilme).listaFilmesCadastrados();
+        new FilmeUI(listaFilmes).listaFilmesCadastrados();
         int codFilme = Console.lerInt("Digite o código do filme desejado: ");
-        Filme filme = listaFilme.buscaFilmePorCodigo(codFilme);
+        Filme filme = listaFilmes.buscaFilmePorCodigo(codFilme);
 
         System.out.println("Escolha uma das salas abaixo: ");
-        new SalaUI(listaSala).listaSalasCadastradas();
-        int numeroSala = Console.lerInt("Digite o numero da sala desejada: ");
-        Sala sala = listaSala.buscaSalaPorNumero(numeroSala);
+        new SalaUI(listaSalas).listaSalasCadastradas();
+        String numeroSala = Console.lerString("Digite o numero da sala desejada: ");
+        Sala sala = listaSalas.buscaSalaPorNumero(numeroSala);
 
-        //Fala por o horario da sessão
+        String horarioSessao = Console.lerString("Digite o horário da sessão: ");
+        if(DateUtil.verificaHorario(horarioSessao)){
+            try {
+                horario = DateUtil.stringToHour(horarioSessao);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }else {
+            System.out.println("Horário inválido!!!");
+        }
+        double valor = Console.lerDouble("Digite valor da sessão: ");
+        listaSecoes.adicionaSecao(new Secao(sala, filme, horario, valor));
+        System.out.println("Sessao das " + horarioSessao + " dadastrada com sucesso!!!" );
+    }
+
+    public void listaSessoesCadastradas(){
+        System.out.println("===============================================\n");
+        System.out.println(String.format("%-10s", "COD FILME") + "\t" +
+                String.format("%-20s", "TITULO") + "\t" +
+                String.format("%-20s", "SALA") + "\t" +
+                String.format("%-20s", "HORÁRIO") + "\t" +
+                String.format("%-20s", "DATA INICIO") + "\t" +
+                String.format("%-20s", "DATA TERMINO") + "\t" +
+                String.format("%-20s", "VALOR") + "\t" +
+                String.format("%-20s", "QTD DISPONIVEL"));
+        for (Secao secao : listaSecoes.getSecoes()){
+            System.out.println(String.format("%-10s", secao.getFilme().getCodigo()) + "\t" +
+                    String.format("%-20s", secao.getFilme().getTitulo()) + "\t" +
+                    String.format("%-20s", secao.getSala().getNumero()) + "\t" +
+                    String.format("%-20s", DateUtil.hourToStringHour(secao.getHorario())) + "\t" +
+                    String.format("%-20s", DateUtil.dateToStringDate(secao.getFilme().getDataInicio())) + "\t" +
+                    String.format("%-20s", DateUtil.dateToStringDate(secao.getFilme().getDataTermino())) + "\t" +
+                    String.format("%-20s", secao.getValor()) + "\t" +
+                    String.format("%-20s", secao.getSala().getQtdAssentos()));
+        }
     }
 }

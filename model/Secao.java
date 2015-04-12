@@ -10,11 +10,13 @@ public class Secao {
     private Sala sala;
     private Filme filme;
     private Date horario;
+    private double valor;
 
-    public Secao(Sala sala, Filme filme, Date horario) {
+    public Secao(Sala sala, Filme filme, Date horario, double valor) {
         this.sala = sala;
         this.filme = filme;
         this.horario = horario;
+        this.valor = valor;
     }
 
     public Sala getSala() {
@@ -39,5 +41,13 @@ public class Secao {
 
     public void setHorario(Date horario) {
         this.horario = horario;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
     }
 }

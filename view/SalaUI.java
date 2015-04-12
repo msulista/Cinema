@@ -27,7 +27,7 @@ public class SalaUI {
                     break;
                 }
                 case SalaMenu.OP_LISTAR:{
-         //           listaSalasCadastradas();
+                    listaSalasCadastradas();
                     break;
                 }
                 case SalaMenu.OP_VOLTAR:{
@@ -40,7 +40,7 @@ public class SalaUI {
         }while (opcao != SalaMenu.OP_VOLTAR);
     }
     public void cadastrarSala(){
-        int numeroSala = Console.lerInt("Numero da Sala: ");
+        String numeroSala = Console.lerString("Numero da Sala: ");
         if(listaSalas.verificaSeJaExisteSalaPorNumero(numeroSala)){
             System.out.println("Sala de numero " + numeroSala + " já esta cadastrada!!!");
         }else{
@@ -48,7 +48,6 @@ public class SalaUI {
             listaSalas.adicionaSala(new Sala(numeroSala, qtdAssentos));
             System.out.println("Sala numero " + numeroSala + " cadastrada com sucesso!!!");
         }
-
     }
 
     public void listaSalasCadastradas(){

@@ -79,7 +79,7 @@ public class FilmeUI {
                 System.out.println("Data inválida!!!");
             }
             listaFilmes.addFilmes(new Filme(codFilme, titulo, genero, sinopse, dataInicio, dataFinal));
-            System.out.println("Filme " + titulo + "Foi cadastrado com sucesso!!!");
+            System.out.println("Filme " + titulo + " foi cadastrado com sucesso!!!");
         }
     }
 
@@ -95,8 +95,8 @@ public class FilmeUI {
             System.out.println(String.format("%-10s", filme.getCodigo()) + "\t" +
                     String.format("%-20s", filme.getTitulo()) + "\t" +
                     String.format("%-20s", filme.getGenero()) + "\t" +
-                    String.format("%-20s", filme.getDataInicio()) + "\t" +
-                    String.format("%-20s", filme.getDataTermino()) + "\t" +
+                    String.format("%-20s", DateUtil.dateToStringDate(filme.getDataInicio())) + "\t" +
+                    String.format("%-20s", DateUtil.dateToStringDate(filme.getDataTermino())) + "\t" +
                     String.format("%-20s", filme.getSinopse()));
         }
     }
