@@ -3,6 +3,8 @@ package model;
 import java.util.Date;
 
 /**
+ * Classe Secao representa uma sessão que o Cine Up apresenta.
+ *
  * Created by marcus.rodrigues on 29/03/2015.
  */
 public class Secao {
@@ -12,6 +14,14 @@ public class Secao {
     private Date horario;
     private double valor;
 
+    /**
+     * Método cosntrutor da classe Sessao
+     *
+     * @param sala é um atributo Sala que recebe um objeto de Sala que faz parte da Sessao criada.
+     * @param filme é um atributo Filme que recebe um objeto de Filme que faz parte da Sessao criada.
+     * @param horario é um atributo Date que recebe um horario que define a hora da Sessao criada.
+     * @param valor é um atributo double que recebe um valor referente ao custo da Sessao criada.
+     */
     public Secao(Sala sala, Filme filme, Date horario, double valor) {
         this.sala = sala;
         this.filme = filme;
@@ -19,6 +29,7 @@ public class Secao {
         this.valor = valor;
     }
 
+    //Métodos Getters e Setters
     public Sala getSala() {
         return sala;
     }
