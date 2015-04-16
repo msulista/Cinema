@@ -66,20 +66,4 @@ public class DateUtil {
         long dif = end.getTime() - start.getTime();
         return(Math.abs(dif/(24*60*60*1000)));
     }
-
-
-    /*Como utilizar
-        public static void main(String args[]) throws ParseException{
-            String dataString = Console.scanString("Digite a data:");
-            if(verificaData(dataString))
-            {
-                Date data = stringToDate(dataString);
-                Date dataMaisCinco = addDays(data, 5);
-                System.out.println(dateToString(dataMaisCinco));
-                System.out.println(DateUtil.differenceInDays(dataMaisCinco,data));
-            }
-            else
-                System.out.println("Data inválida");
-        }
-    */
 }

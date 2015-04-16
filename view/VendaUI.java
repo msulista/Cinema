@@ -32,6 +32,9 @@ public class VendaUI {
         this.horaFilme = horaFilme;
     }
 
+    /**
+     * Método executar contem um switch com as opções de ação do usuario.
+     */
     public void executar(){
         int opcao = 0;
         do {
@@ -61,6 +64,10 @@ public class VendaUI {
         }while (opcao != VendaMenu.OP_VOLTAR);
     }
 
+    /**
+     * Método cadastrarVendaInteira responsavel por realizar a interação com o usuario e receber os dados do teclado
+     * por fim cria uma venda e a adiciona a lista de vendas e diminui o numero de cadeiras disponiveis.
+     */
     public void cadastrarVendaInteira(){
         System.out.println("Escolha um dos filme abaixo: ");
         new SecaoUI(listaSessoes,listaFilmes, listaSalas).listaSessoesCadastradas();
@@ -97,6 +104,10 @@ public class VendaUI {
         }
     }
 
+    /**
+     * Método cadastrarVendaMeiaEntrada responsavel por realizar a interação com o usuario e receber os dados do teclado
+     * por fim cria uma venda e a adiciona a lista de vendas e diminui o numero de cadeiras disoniveis.
+     */
     public void cadastrarVendaMeiaEntrada(){
         System.out.println("Escolha um dos filme abaixo: ");
         new SecaoUI(listaSessoes,listaFilmes, listaSalas).listaSessoesCadastradas();
@@ -133,6 +144,9 @@ public class VendaUI {
         }
     }
 
+    /**
+     * Lista todas as vendas já cadastradas
+     */
     public void listaVendasCadastradas(){
         System.out.println("===============================================\n");
         System.out.println(String.format("%-10s", "COD FILME") + "\t" +

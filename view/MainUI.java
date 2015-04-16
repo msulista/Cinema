@@ -24,6 +24,9 @@ public class MainUI {
         this.repositorioVenda = new RepositorioVenda();
     }
 
+    /**
+     * Método executar contem um switch com as opções de ação do usuario.
+     */
     public void executar() {
         int opcao = 0;
         do {

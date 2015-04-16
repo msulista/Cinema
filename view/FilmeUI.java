@@ -11,6 +11,8 @@ import java.util.Date;
 
 
 /**
+ * Classe FilmeUI responsavel por chamar os menus e interagir com o usuario
+ *
  * Created by marcus.rodrigues on 30/03/2015.
  */
 public class FilmeUI {
@@ -21,10 +23,11 @@ public class FilmeUI {
 
     public FilmeUI(RepositorioFilme listaFilmes) {
         this.listaFilmes = listaFilmes;
-       // dataInicio = new Date();
-       // dataFinal = new Date();
     }
 
+    /**
+     * Método executar contem um switch com as opções de ação do usuario.
+     */
     public void executar(){
         int opcao = 0;
         do {
@@ -49,6 +52,10 @@ public class FilmeUI {
         }while (opcao != FilmeMenu.OP_VOLTAR);
     }
 
+    /**
+     * Método cadastrar filmes responsavel por realizar a nteração com o usuario e receber os dados do teclado
+     * por fim cria um fime e o adiciona a lista de filmes.
+     */
     public void cadastrarFilme(){
         int codFilme = Console.lerInt("Código: ");
         if (listaFilmes.verificaSeJaExisteFilmePorCodigo(codFilme)){
@@ -83,6 +90,9 @@ public class FilmeUI {
         }
     }
 
+    /**
+     * Método listaFilmesCadastrados responsavel por listar todos os filmes cadastrados.
+     */
     public void listaFilmesCadastrados(){
         System.out.println("===============================================\n");
         System.out.println(String.format("%-10s", "COD FILME") + "\t" +

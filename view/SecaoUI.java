@@ -29,6 +29,9 @@ public class SecaoUI {
         this.listaSalas = listaSalas;
     }
 
+    /**
+     * Método executar contem um switch com as opções de ação do usuario.
+     */
     public void executar(){
         int opcao = 0;
         do {
@@ -54,6 +57,10 @@ public class SecaoUI {
         }while (opcao != SecaoMenu.OP_VOLTAR);
     }
 
+    /**
+     * Método cadastrarSecao responsavel por realizar a interação com o usuario e receber os dados do teclado
+     * por fim cria uma sessao e a adiciona a lista de sessoes.
+     */
     public void cadastrarSecao(){
         System.out.println("Escolha um dos filme abaixo: ");
         new FilmeUI(listaFilmes).listaFilmesCadastrados();
@@ -81,6 +88,9 @@ public class SecaoUI {
         System.out.println("Sessao das " + horarioSessao + " dadastrada com sucesso!!!" );
     }
 
+    /**
+     * Método listaSessoesCadastradas lista todas as sessoes já cadastradas
+     */
     public void listaSessoesCadastradas(){
         System.out.println("===============================================\n");
         System.out.println(String.format("%-10s", "COD FILME") + "\t" +

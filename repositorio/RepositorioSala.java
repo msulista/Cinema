@@ -53,9 +53,9 @@ public class RepositorioSala {
     }
 
     /**
-     * Método buscaSalaPorNumero
-     * @param numero
-     * @return
+     * Método buscaSalaPorNumero percorre a lista de salas buscando por resultados com o mesmp numero
+     * @param numero String recebida por parametro.
+     * @return retorna uma sala se encontrar, se não null.
      */
     public Sala buscaSalaPorNumero(String numero){
         for (Sala sala : salas){

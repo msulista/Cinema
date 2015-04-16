@@ -16,6 +16,9 @@ public class SalaUI {
         this.listaSalas = listaSalas;
     }
 
+    /**
+     * Método executar contem um switch com as opções de ação do usuario.
+     */
     public void executar(){
         int opcao = 0;
         do {
@@ -39,6 +42,11 @@ public class SalaUI {
             }
         }while (opcao != SalaMenu.OP_VOLTAR);
     }
+
+    /**
+     * Método cadastrarSala responsavel por realizar a interação com o usuario e receber os dados do teclado
+     * por fim cria uma sala e o adiciona a lista de salas.
+     */
     public void cadastrarSala(){
         String numeroSala = Console.lerString("Numero da Sala: ");
         if(listaSalas.verificaSeJaExisteSalaPorNumero(numeroSala)){
@@ -50,6 +58,9 @@ public class SalaUI {
         }
     }
 
+    /**
+     * Método listaDeSalasCadastradas lista todas as salas já cadastradas.
+     */
     public void listaSalasCadastradas(){
         System.out.println("===============================================\n");
         System.out.println(String.format("%-10s", "NUMERO SALA") + "\t" +
