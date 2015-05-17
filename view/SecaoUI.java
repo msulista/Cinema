@@ -1,5 +1,7 @@
 package view;
 
+import dao.SessaoDao;
+import dao.SessaoDaoBd;
 import model.Filme;
 import model.Sala;
 import model.Secao;
@@ -62,6 +64,7 @@ public class SecaoUI {
      * por fim cria uma sessao e a adiciona a lista de sessoes.
      */
     public void cadastrarSecao(){
+        SessaoDao dao = new SessaoDaoBd();
         System.out.println("Escolha um dos filme abaixo: ");
         new FilmeUI(listaFilmes).listaFilmesCadastrados();
         int codFilme = Console.lerInt("Digite o código do filme desejado: ");
@@ -84,7 +87,9 @@ public class SecaoUI {
             System.out.println("Horário inválido!!!");
         }
         double valor = Console.lerDouble("Digite valor da sessão: ");
-        listaSecoes.adicionaSecao(new Secao(sala, filme, horario, valor));
+        Secao secao = new Secao(sala, filme, horario, valor);
+        listaSecoes.adicionaSecao(secao);
+        dao.inserir(secao);
         System.out.println("Sessao das " + horarioSessao + " dadastrada com sucesso!!!" );
     }
 

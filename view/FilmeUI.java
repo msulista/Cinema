@@ -1,5 +1,7 @@
 package view;
 
+import dao.FilmeDao;
+import dao.FilmeDaoBd;
 import model.Filme;
 import repositorio.RepositorioFilme;
 import util.Console;
@@ -57,6 +59,7 @@ public class FilmeUI {
      * por fim cria um fime e o adiciona a lista de filmes.
      */
     public void cadastrarFilme(){
+        FilmeDao dao = new FilmeDaoBd();
         int codFilme = Console.lerInt("Código: ");
         if (listaFilmes.verificaSeJaExisteFilmePorCodigo(codFilme)){
             System.out.println("Filme com código " + codFilme + " já esta cadastrado!!!");
@@ -85,7 +88,9 @@ public class FilmeUI {
             }else {
                 System.out.println("Data inválida!!!");
             }
-            listaFilmes.addFilmes(new Filme(codFilme, titulo, genero, sinopse, dataInicio, dataFinal));
+            Filme filme = new Filme(codFilme, titulo, genero, sinopse, dataInicio, dataFinal);
+            listaFilmes.addFilmes(filme);
+            dao.inserir(filme);
             System.out.println("Filme " + titulo + " foi cadastrado com sucesso!!!");
         }
     }

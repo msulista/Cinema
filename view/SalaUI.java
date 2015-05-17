@@ -1,5 +1,7 @@
 package view;
 
+import dao.SalaDao;
+import dao.SalaDaoBd;
 import model.Sala;
 import repositorio.RepositorioSala;
 import util.Console;
@@ -48,12 +50,15 @@ public class SalaUI {
      * por fim cria uma sala e o adiciona a lista de salas.
      */
     public void cadastrarSala(){
+        SalaDao dao = new SalaDaoBd();
         String numeroSala = Console.lerString("Numero da Sala: ");
         if(listaSalas.verificaSeJaExisteSalaPorNumero(numeroSala)){
             System.out.println("Sala de numero " + numeroSala + " já esta cadastrada!!!");
         }else{
             int qtdAssentos = Console.lerInt("Quantidade Assentos: ");
-            listaSalas.adicionaSala(new Sala(numeroSala, qtdAssentos));
+            Sala sala = new Sala(numeroSala, qtdAssentos);
+            listaSalas.adicionaSala(sala);
+            dao.inserir(sala);
             System.out.println("Sala numero " + numeroSala + " cadastrada com sucesso!!!");
         }
     }

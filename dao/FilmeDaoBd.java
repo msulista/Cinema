@@ -54,7 +54,6 @@ public class FilmeDaoBd implements FilmeDao {
         String sql = "UPDATE Filme SET codigo=?, titulo=?, genero=?, sinopse=?, data_Inicio=?, data_Fim=?";
         try {
             comando = conexao.prepareStatement(sql);
-            comando = conexao.prepareStatement(sql);
             comando.setInt(1, filme.getCodigo());
             comando.setString(2, filme.getTitulo());
             comando.setString(3, filme.getGenero());
