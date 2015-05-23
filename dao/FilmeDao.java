@@ -16,4 +16,5 @@ public interface FilmeDao {
     public List<Filme> buscaPorGenero(String genero);
     public Filme buscaPorID(int id);
     public List<Filme> listar();
+    public int retornaIDFilme(int codigo);
 }

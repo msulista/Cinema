@@ -56,15 +56,16 @@ public class SalaDaoBd implements SalaDao{
     }
 
     @Override
-    public void atualizar(Sala sala) {
+    public void atualizar(Sala sala, String numero) {
 
-        String sql = "UPDATE Sala SET numero=?, qtd_assentos=?";
+        String sql = "UPDATE Sala SET numero=?, qtd_assentos=? WHERE numero=?";
         try {
             conexao = ConnectionFactory.getConnection();
             comando = conexao.prepareStatement(sql);
             comando = conexao.prepareStatement(sql);
             comando.setString(1, sala.getNumero());
             comando.setInt(2, sala.getQtdAssentos());
+            comando.setString(3, numero);
             comando.executeUpdate();
             conexao.close();
         }catch (SQLException e) {
@@ -75,14 +76,14 @@ public class SalaDaoBd implements SalaDao{
     }
 
     @Override
-    public Sala buscarPorNumero(int numero) {
+    public Sala buscarPorNumero(String numero) {
 
         Sala sala = null;
         String sql = "SELECT * FROM Sala WHERE numero = ?";
         try {
             conexao = ConnectionFactory.getConnection();
             comando = conexao.prepareStatement(sql);
-            comando.setInt(1, numero);
+            comando.setString(1, numero);
             ResultSet resultado = comando.executeQuery();
             if(resultado.next()){
                 sala = new Sala(resultado.getString("numero"),
@@ -117,6 +118,27 @@ public class SalaDaoBd implements SalaDao{
             e.printStackTrace();
         }
         return sala;
+    }
+
+    @Override
+    public int retornaIDSala(String numero) {
+        int idSala = 0;
+        String slqSala = "SELECT id_sala FROM Sala WHERE numero = ?";
+        try {
+            conexao = ConnectionFactory.getConnection();
+            comando = conexao.prepareStatement(slqSala);
+            comando.setString(1, numero);
+            ResultSet resultado = comando.executeQuery();
+            if (resultado.next()) {
+                idSala = resultado.getInt("id_sala");
+            }
+            conexao.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return idSala;
     }
 
     @Override

@@ -11,10 +11,11 @@ import java.util.List;
 public interface SessaoDao {
 
     public void inserir(Secao secao, String horaSql, String numSala, int codFilme);
-    public void deletar(Secao secao);
-    public void atualizar(Secao secao);
-    public List<Secao> buscaPorHorarioEFilme(String titulo);
-    public List<Secao> buscaPorHorario(Date horario);
+    public void deletar(int id_sessao);
+    public void atualizar(Secao secao, String horario, String numSala, int codFilme, int idSessao);
+    public Secao buscaSessaoPorFilmeEHorario(int codFilme, String horario);
+    public List<Secao> buscaSessaoPorCodFilme(int codFilme);
+    public List<Secao> buscaSessaoPorHorario(String horario);
     public Secao buscaPorID(int id);
     public List<Secao> listar();
 }

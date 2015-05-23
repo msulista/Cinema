@@ -211,7 +211,7 @@ public class FilmeUI {
                 String.format("%-20s", DateUtil.dateToStringDate(filme.getDataInicio())) + "\t" +
                 String.format("%-20s", DateUtil.dateToStringDate(filme.getDataTermino())) + "\t" +
                 String.format("%-20s", filme.getSinopse()));
-        int confirma = Console.lerInt("\n Deseja realmente deletar este filme? 1- Sim 2 - Não");
+        int confirma = Console.lerInt("\n Deseja realmente deletar este filme? 1- Sim 2 - Não ");
         if (confirma == 1){
             dao.deletar(filme);
             System.out.println("Filme deletado com sucesso!!!");

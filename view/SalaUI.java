@@ -33,6 +33,14 @@ public class SalaUI {
                     cadastrarSala();
                     break;
                 }
+                case SalaMenu.OP_ATUALIZAR:{
+                    atualizarSala();
+                    break;
+                }
+                case SalaMenu.OP_DELETAR:{
+                    deletarSalaPorNumero();
+                    break;
+                }
                 case SalaMenu.OP_LISTAR:{
                     listaSalasCadastradas();
                     break;
@@ -65,6 +73,44 @@ public class SalaUI {
         }
     }
 
+    public void atualizarSala(){
+        listaSalasCadastradas();
+        SalaDao dao = new SalaDaoBd();
+
+        String numSala = Console.lerString("Informe numero da sala: ");
+        Sala sala = dao.buscarPorNumero(numSala);
+        System.out.println("===============================================\n");
+        System.out.println(String.format("%-10s", "NUMERO SALA") + "\t" +
+                             String.format("%-20s", "QUANTIDADE DE ASSENTOS"));
+        System.out.println(String.format("%-10s", sala.getNumero()) + "\t" +
+                            String.format("%-20s", sala.getQtdAssentos()));
+
+        System.out.println("\n Informe as alterações:");
+        String numero = Console.lerString("Numero Sala: ");
+        int qtdAssentos = Console.lerInt("Quantidade assentos: ");
+
+        sala = new Sala(numero, qtdAssentos);
+        dao.atualizar(sala, numSala); //insere no bd
+        System.out.println("Filme " + sala.getNumero() + " foi atualizado com sucesso!!!");
+    }
+
+    public void deletarSalaPorNumero(){
+        SalaDao dao = new SalaDaoBd();
+
+        String numSala = Console.lerString("Informe numero da sala: ");
+        Sala sala = dao.buscarPorNumero(numSala);
+        System.out.println("===============================================\n");
+        System.out.println(String.format("%-10s", "NUMERO SALA") + "\t" +
+                String.format("%-20s", "QUANTIDADE DE ASSENTOS"));
+        System.out.println(String.format("%-10s", sala.getNumero()) + "\t" +
+                String.format("%-20s", sala.getQtdAssentos()));
+        int confirma = Console.lerInt("\n Deseja realmente deletar esta sala? 1- Sim 2 - Não ");
+        if (confirma == 1){
+            dao.deletar(sala);
+            System.out.println("Sala deletado com sucesso!!!");
+        }else
+            System.out.println("Sala não sera deletado!!!");
+    }
     /**
      * Método listaDeSalasCadastradas lista todas as salas já cadastradas.
      */
@@ -73,12 +119,6 @@ public class SalaUI {
         System.out.println("===============================================\n");
         System.out.println(String.format("%-10s", "NUMERO SALA") + "\t" +
                 String.format("%-20s", "QUANTIDADE DE ASSENTOS"));
-    /*
-        for (Sala sala : listaSalas.getSalas()){
-            System.out.println(String.format("%-10s", sala.getNumero()) + "\t" +
-                    String.format("%-20s", sala.getQtdAssentos()));
-        }
-     */
         for (Sala sala : dao.listar()){
             System.out.println(String.format("%-10s", sala.getNumero()) + "\t" +
                     String.format("%-20s", sala.getQtdAssentos()));

@@ -13,6 +13,7 @@ public class Secao {
     private Filme filme;
     private Date horario;
     private double valor;
+    private int id;
 
     /**
      * Método cosntrutor da classe Sessao
@@ -27,6 +28,13 @@ public class Secao {
         this.filme = filme;
         this.horario = horario;
         this.valor = valor;
+    }
+    public Secao(Sala sala, Filme filme, Date horario, double valor, int id) {
+        this.sala = sala;
+        this.filme = filme;
+        this.horario = horario;
+        this.valor = valor;
+        this.id = id;
     }
 
     //Métodos Getters e Setters
@@ -60,5 +68,9 @@ public class Secao {
 
     public void setValor(double valor) {
         this.valor = valor;
+    }
+
+    public int getId() {
+        return id;
     }
 }

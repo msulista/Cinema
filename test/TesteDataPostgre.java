@@ -24,4 +24,37 @@ public class TesteDataPostgre {
         //System.out.println("String to date: "+ dataDate);
 
     }
+    /*
+        String slqSala = "SELECT id_sala FROM Sala WHERE numero = ?";
+        try {
+            conexao = ConnectionFactory.getConnection();
+            comando = conexao.prepareStatement(slqSala);
+            comando.setString(1, numSala);
+            ResultSet resultado = comando.executeQuery();
+            if (resultado.next()) {
+                idSala = resultado.getInt("id_sala");
+            }
+            conexao.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String slqFilme = "SELECT id_filme FROM Filme WHERE codigo = ?";
+        try {
+            conexao = ConnectionFactory.getConnection();
+            comando = conexao.prepareStatement(slqFilme);
+            comando.setInt(1, codFilme);
+            ResultSet resultado = comando.executeQuery();
+            if (resultado.next()) {
+                idFilme = resultado.getInt("id_filme");
+            }
+            conexao.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        */
 }

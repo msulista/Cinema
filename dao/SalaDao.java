@@ -11,8 +11,9 @@ public interface SalaDao {
 
     public void inserir(Sala sala);
     public void deletar(Sala sala);
-    public void atualizar(Sala sala);
-    public Sala buscarPorNumero(int numero);
+    public void atualizar(Sala sala, String numero);
+    public Sala buscarPorNumero(String numero);
     public Sala buscaPorID(int id);
     public List<Sala> listar();
+    public int retornaIDSala(String numero);
 }

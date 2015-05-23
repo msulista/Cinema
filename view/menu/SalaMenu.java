@@ -6,9 +6,9 @@ package view.menu;
 public class SalaMenu {
 
     public static final int OP_CADASTRAR = 1;
-    public static final int OP_ATUALIZAR = 1;
-    public static final int OP_DELETAR = 1;
-    public static final int OP_LISTAR = 2;
+    public static final int OP_ATUALIZAR = 2;
+    public static final int OP_DELETAR = 3;
+    public static final int OP_LISTAR = 4;
     public static final int OP_VOLTAR = 0;
 
     public static String getOpcoes(){

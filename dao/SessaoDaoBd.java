@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,38 +23,10 @@ public class SessaoDaoBd implements SessaoDao{
     @Override
     public void inserir(Secao secao, String horaSql, String numSala, int codFilme) {
 
-        int idSala = 0;
-        int idFilme =0;
-        String slqSala = "SELECT id_sala FROM Sala WHERE numero = ?";
-        try {
-            conexao = ConnectionFactory.getConnection();
-            comando = conexao.prepareStatement(slqSala);
-            comando.setString(1, numSala);
-            ResultSet resultado = comando.executeQuery();
-            if (resultado.next()) {
-                idSala = resultado.getInt("id_sala");
-            }
-            conexao.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        String slqFilme = "SELECT id_filme FROM Filme WHERE codigo = ?";
-        try {
-            conexao = ConnectionFactory.getConnection();
-            comando = conexao.prepareStatement(slqFilme);
-            comando.setInt(1, codFilme);
-            ResultSet resultado = comando.executeQuery();
-            if (resultado.next()) {
-                idFilme = resultado.getInt("id_filme");
-            }
-            conexao.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        SalaDao salaDao = new SalaDaoBd();
+        FilmeDao filmeDao = new FilmeDaoBd();
+        int idSala = salaDao.retornaIDSala(numSala);
+        int idFilme = filmeDao.retornaIDFilme(codFilme);
 
         String sql = "INSERT INTO Sessao (horario, valor, id_sala, id_filme) VALUES(?,?,?,?)";
         try {
@@ -75,13 +46,13 @@ public class SessaoDaoBd implements SessaoDao{
     }
 
     @Override
-    public void deletar(Secao secao) {
+    public void deletar(int idSessao) {
 
-        String sql = "DELETE FROM Sessao WHERE horario = ?";
+        String sql = "DELETE FROM Sessao WHERE id_sessao = ?";
         try {
             conexao = ConnectionFactory.getConnection();
             comando = conexao.prepareStatement(sql);
-            comando.setDate(1, (java.sql.Date) secao.getHorario());
+            comando.setInt(1, idSessao);
             comando.executeUpdate();
             conexao.close();
         } catch (SQLException e) {
@@ -92,36 +63,22 @@ public class SessaoDaoBd implements SessaoDao{
     }
 
     @Override
-    public void atualizar(Secao secao) {
+    public void atualizar(Secao secao, String horario, String numSala, int codFilme, int id_sessao) {
 
-        String numeroSala = secao.getSala().getNumero();
-        int codigoFilme = secao.getFilme().getCodigo();
-        String slq2 = "SELECT id_sala, id_filme FROM Sala, Filme WHERE numero = ? AND codigo = ?";
-        int idSala = 0;
-        int idFilme =0;
-        try {
-            conexao = ConnectionFactory.getConnection();
-            comando = conexao.prepareStatement(slq2);
-            comando.setString(1, numeroSala);
-            comando.setInt(2, codigoFilme);
-            ResultSet resultado = comando.executeQuery();
-            idSala = resultado.getInt("id_sala");
-            idFilme = resultado.getInt("id_filme");
-            conexao.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        SalaDao salaDao = new SalaDaoBd();
+        FilmeDao filmeDao = new FilmeDaoBd();
+        int id_sala = salaDao.retornaIDSala(numSala);
+        int id_filme = filmeDao.retornaIDFilme(codFilme);
 
-        String sql = "UPDATE Sessao SET horario=?, valor=?, id_sala=?, id_filme=?";
+        String sql = "UPDATE Sessao SET horario=?, valor=?, id_sala=?, id_filme=? WHERE id_sessao = ?";
         try {
             conexao = ConnectionFactory.getConnection();
             comando = conexao.prepareStatement(sql);
-            comando.setDate(1, (java.sql.Date) secao.getHorario());
+            comando.setString(1, horario);
             comando.setDouble(2, secao.getValor());
-            comando.setInt(3, idSala);
-            comando.setInt(4, idFilme);
+            comando.setInt(3, id_sala);
+            comando.setInt(4, id_filme);
+            comando.setInt(5, id_sessao);
             comando.executeUpdate();
             conexao.close();
         }catch (SQLException e) {
@@ -132,44 +89,76 @@ public class SessaoDaoBd implements SessaoDao{
     }
 
     @Override
-    public List<Secao> buscaPorHorarioEFilme(String titulo) {
-        List<Secao> filmeList = new ArrayList<Secao>();
-        /*
-        String slq2 = "SELECT id_filme FROM Filme WHERE titulo = ?";
-        int idFilme =0;
-        try {
-            comando = conexao.prepareStatement(slq2);
-            comando.setString(1, titulo);
-            ResultSet resultado = comando.executeQuery();
-            idFilme = resultado.getInt("id_filme");
-            conexao.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public Secao buscaSessaoPorFilmeEHorario(int codFilme, String horario) {
+        FilmeDao filmeDao = new FilmeDaoBd();
+        SalaDao salaDao = new SalaDaoBd();
+        List<Secao> secaoList = new ArrayList<Secao>();
 
-        String sql = "SELECT * FROM Sessao WHERE id_filme=? ";
+        int idFilme = filmeDao.retornaIDFilme(codFilme);
+        Secao secao = null;
+        String sql = "SELECT * FROM Sessao WHERE id_filme = ? AND horario =?";
         try {
+            conexao = ConnectionFactory.getConnection();
             comando = conexao.prepareStatement(sql);
             comando.setInt(1, idFilme);
+            comando.setString(2, horario);
             ResultSet resultado = comando.executeQuery();
-            while(resultado.next()){
-                Secao secao = new Secao(resultado.getInt("id_sala"),
-                        resultado.getInt("id_filme"),
-                        resultado.getDate("horario"),
-                        resultado.getDouble("valor"));
-                filmeList.add(Secao);
+            if (resultado.next()){
+                secao = new Secao(salaDao.buscaPorID(resultado.getInt("id_sala")),
+                                        filmeDao.buscaPorID(resultado.getInt("id_filme")),
+                                        DateUtil.stringToHour(resultado.getString("horario")),
+                                        resultado.getDouble("valor"));
             }
             conexao.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        */
-        return filmeList;
+        return secao;
+
 
     }
 
     @Override
-    public List<Secao> buscaPorHorario(Date horario) {
+    public List<Secao> buscaSessaoPorCodFilme(int codFilme) {
+        FilmeDao filmeDao = new FilmeDaoBd();
+        SalaDao salaDao = new SalaDaoBd();
+        List<Secao> secaoList = new ArrayList<Secao>();
+
+        int idFilme = filmeDao.retornaIDFilme(codFilme);
+        Secao secao = null;
+        String sql = "SELECT * FROM Sessao WHERE id_filme = ?";
+        try {
+            conexao = ConnectionFactory.getConnection();
+            comando = conexao.prepareStatement(sql);
+            comando.setInt(1, idFilme);
+            ResultSet resultado = comando.executeQuery();
+            if (resultado.next()){
+                secao = new Secao(salaDao.buscaPorID(resultado.getInt("id_sala")),
+                        filmeDao.buscaPorID(resultado.getInt("id_filme")),
+                        DateUtil.stringToHour(resultado.getString("horario")),
+                        resultado.getDouble("valor"));
+                secaoList.add(secao);
+            }
+            conexao.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return secaoList;
+    }
+
+    @Override
+    public List<Secao> buscaSessaoPorHorario(String horario) {
+        List<Secao> filmeList = new ArrayList<Secao>();
+
+
         return null;
     }
 
@@ -214,7 +203,8 @@ public class SessaoDaoBd implements SessaoDao{
                 Secao secao = new Secao(salaDao.buscaPorID(resultado.getInt("id_sala")),
                                         filmeDao.buscaPorID(resultado.getInt("id_filme")),
                                                 DateUtil.stringToHour(resultado.getString("horario")),
-                                                resultado.getDouble("valor"));
+                                                resultado.getDouble("valor"),
+                                                resultado.getInt("id_sessao"));
                 secaoList.add(secao);
             }
             conexao.close();
