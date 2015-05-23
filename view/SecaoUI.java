@@ -105,6 +105,7 @@ public class SecaoUI {
      * Método listaSessoesCadastradas lista todas as sessoes já cadastradas
      */
     public void listaSessoesCadastradas(){
+        SessaoDao dao = new SessaoDaoBd();
         System.out.println("===============================================\n");
         System.out.println(String.format("%-10s", "COD FILME") + "\t" +
                 String.format("%-20s", "TITULO") + "\t" +
@@ -114,7 +115,7 @@ public class SecaoUI {
                 String.format("%-20s", "DATA TERMINO") + "\t" +
                 String.format("%-20s", "VALOR") + "\t" +
                 String.format("%-20s", "QTD DISPONIVEL"));
-        for (Secao secao : listaSecoes.getSecoes()){
+        for (Secao secao : dao.listar()){
             System.out.println(String.format("%-10s", secao.getFilme().getCodigo()) + "\t" +
                     String.format("%-20s", secao.getFilme().getTitulo()) + "\t" +
                     String.format("%-20s", secao.getSala().getNumero()) + "\t" +
