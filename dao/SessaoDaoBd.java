@@ -2,11 +2,13 @@ package dao;
 
 import banco.ConnectionFactory;
 import model.Secao;
+import util.DateUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -54,8 +56,6 @@ public class SessaoDaoBd implements SessaoDao{
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        System.out.println("idFilme: " + idFilme);
-        System.out.println("idSala: " + idSala);
 
         String sql = "INSERT INTO Sessao (horario, valor, id_sala, id_filme) VALUES(?,?,?,?)";
         try {
@@ -175,6 +175,30 @@ public class SessaoDaoBd implements SessaoDao{
 
     @Override
     public List<Secao> listar() {
-        return null;
+        FilmeDao filmeDao = new FilmeDaoBd();
+        SalaDao salaDao = new SalaDaoBd();
+        List<Secao> secaoList = new ArrayList<Secao>();
+        String sql = "SELECT * FROM Sessao";
+        try {
+            conexao = ConnectionFactory.getConnection();
+            comando = conexao.prepareStatement(sql);
+            ResultSet resultado = comando.executeQuery();
+            while(resultado.next()){
+                Secao secao = new Secao(salaDao.buscaPorID(resultado.getInt("id_sala")),
+                                        filmeDao.buscaPorID(resultado.getInt("id_filme")),
+                                                DateUtil.stringToHour(resultado.getString("horario")),
+                                                resultado.getDouble("valor"));
+                secaoList.add(secao);
+            }
+            conexao.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return secaoList;
     }
+
 }

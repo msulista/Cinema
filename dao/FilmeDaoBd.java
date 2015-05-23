@@ -132,6 +132,32 @@ public class FilmeDaoBd implements FilmeDao {
     }
 
     @Override
+    public Filme buscaPorID(int id){
+        Filme filme = null;
+        String sql = "SELECT * FROM Filme WHERE id_filme = ?";
+        try {
+            conexao = ConnectionFactory.getConnection();
+            comando = conexao.prepareStatement(sql);
+            comando.setInt(1, id);
+            ResultSet resultado = comando.executeQuery();
+            if (resultado.next()){
+                filme = new Filme(resultado.getInt("codigo"),
+                        resultado.getString("titulo"),
+                        resultado.getString("genero"),
+                        resultado.getString("sinopse"),
+                        resultado.getDate("data_inicio"),
+                        resultado.getDate("data_fim"));
+            }
+            conexao.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return filme;
+    }
+
+    @Override
     public List<Filme> listar() {
         List<Filme> filmeList = new ArrayList<Filme>();
         String sql = "SELECT * FROM Filme";

@@ -98,6 +98,28 @@ public class SalaDaoBd implements SalaDao{
     }
 
     @Override
+    public Sala buscaPorID(int id){
+        Sala sala = null;
+        String sql = "SELECT * FROM Sala WHERE id_sala = ?";
+        try {
+            conexao = ConnectionFactory.getConnection();
+            comando = conexao.prepareStatement(sql);
+            comando.setInt(1, id);
+            ResultSet resultado = comando.executeQuery();
+            if (resultado.next()){
+                sala = new Sala(resultado.getString("numero"),
+                            resultado.getInt("qtd_assentos"));
+            }
+            conexao.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return sala;
+    }
+
+    @Override
     public List<Sala> listar() {
         List<Sala> salaList = new ArrayList<Sala>();
         Sala sala = null;

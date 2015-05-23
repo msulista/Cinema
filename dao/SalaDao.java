@@ -13,5 +13,6 @@ public interface SalaDao {
     public void deletar(Sala sala);
     public void atualizar(Sala sala);
     public Sala buscarPorNumero(int numero);
+    public Sala buscaPorID(int id);
     public List<Sala> listar();
 }
