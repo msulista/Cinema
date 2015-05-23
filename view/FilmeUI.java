@@ -10,6 +10,7 @@ import view.menu.FilmeMenu;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -45,7 +46,15 @@ public class FilmeUI {
                     break;
                 }
                 case FilmeMenu.OP_DELETAR:{
-                    //listaFilmesCadastrados();
+                    deletaFilmePorCodigo();
+                    break;
+                }
+                case FilmeMenu.OP_BUSCA_GENERO:{
+                    buscaFilmePorGenero();
+                    break;
+                }
+                case FilmeMenu.OP_BUSCA_COD:{
+                    buscaFilmePorCodigo();
                     break;
                 }
                 case FilmeMenu.OP_LISTAR:{
@@ -140,6 +149,74 @@ public class FilmeUI {
             dao.atualizar(filme, codFilme); //insere no bd
             System.out.println("Filme " + titulo + " foi atualizado com sucesso!!!");
 
+
+    }
+
+    public void buscaFilmePorGenero(){
+        FilmeDao dao = new FilmeDaoBd();
+
+        String buscaGenero = Console.lerString("Informe Genero da busca: ");
+        List<Filme> listaBusca = dao.buscaPorGenero(buscaGenero);
+        System.out.println("===============================================\n");
+        System.out.println(String.format("%-10s", "COD FILME") + "\t" +
+                String.format("%-20s", "TITULO") + "\t" +
+                String.format("%-20s", "GENERO") + "\t" +
+                String.format("%-20s", "DATA INICIO") + "\t" +
+                String.format("%-20s", "DATA TERMINO") + "\t" +
+                String.format("%-20s", "SINOPSE"));
+        for (Filme filme : listaBusca){
+            System.out.println(String.format("%-10s", filme.getCodigo()) + "\t" +
+                    String.format("%-20s", filme.getTitulo()) + "\t" +
+                    String.format("%-20s", filme.getGenero()) + "\t" +
+                    String.format("%-20s", DateUtil.dateToStringDate(filme.getDataInicio())) + "\t" +
+                    String.format("%-20s", DateUtil.dateToStringDate(filme.getDataTermino())) + "\t" +
+                    String.format("%-20s", filme.getSinopse()));
+        }
+    }
+
+    public void buscaFilmePorCodigo(){
+        FilmeDao dao = new FilmeDaoBd();
+
+        int buscaCodigo = Console.lerInt("Informe Código da busca: ");
+        Filme filme = dao.buscarPorCodigo(buscaCodigo);
+        System.out.println("===============================================\n");
+        System.out.println(String.format("%-10s", "COD FILME") + "\t" +
+                String.format("%-20s", "TITULO") + "\t" +
+                String.format("%-20s", "GENERO") + "\t" +
+                String.format("%-20s", "DATA INICIO") + "\t" +
+                String.format("%-20s", "DATA TERMINO") + "\t" +
+                String.format("%-20s", "SINOPSE"));
+            System.out.println(String.format("%-10s", filme.getCodigo()) + "\t" +
+                    String.format("%-20s", filme.getTitulo()) + "\t" +
+                    String.format("%-20s", filme.getGenero()) + "\t" +
+                    String.format("%-20s", DateUtil.dateToStringDate(filme.getDataInicio())) + "\t" +
+                    String.format("%-20s", DateUtil.dateToStringDate(filme.getDataTermino())) + "\t" +
+                    String.format("%-20s", filme.getSinopse()));
+    }
+
+    public void deletaFilmePorCodigo(){
+        FilmeDao dao = new FilmeDaoBd();
+
+        int buscaCodigo = Console.lerInt("Informe Código para deletar: ");
+        Filme filme = dao.buscarPorCodigo(buscaCodigo);
+        System.out.println(String.format("%-10s", "COD FILME") + "\t" +
+                String.format("%-20s", "TITULO") + "\t" +
+                String.format("%-20s", "GENERO") + "\t" +
+                String.format("%-20s", "DATA INICIO") + "\t" +
+                String.format("%-20s", "DATA TERMINO") + "\t" +
+                String.format("%-20s", "SINOPSE"));
+        System.out.println(String.format("%-10s", filme.getCodigo()) + "\t" +
+                String.format("%-20s", filme.getTitulo()) + "\t" +
+                String.format("%-20s", filme.getGenero()) + "\t" +
+                String.format("%-20s", DateUtil.dateToStringDate(filme.getDataInicio())) + "\t" +
+                String.format("%-20s", DateUtil.dateToStringDate(filme.getDataTermino())) + "\t" +
+                String.format("%-20s", filme.getSinopse()));
+        int confirma = Console.lerInt("\n Deseja realmente deletar este filme? 1- Sim 2 - Não");
+        if (confirma == 1){
+            dao.deletar(filme);
+            System.out.println("Filme deletado com sucesso!!!");
+        }else
+            System.out.println("Filme não sera deletado!!!");
 
     }
 
