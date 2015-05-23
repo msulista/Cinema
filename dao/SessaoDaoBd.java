@@ -20,7 +20,7 @@ public class SessaoDaoBd implements SessaoDao{
     private PreparedStatement comando;
 
     @Override
-    public void inserir(Secao secao, String numSala, int codFilme) {
+    public void inserir(Secao secao, String horaSql, String numSala, int codFilme) {
 
         int idSala = 0;
         int idFilme =0;
@@ -61,7 +61,7 @@ public class SessaoDaoBd implements SessaoDao{
         try {
             conexao = ConnectionFactory.getConnection();
             comando = conexao.prepareStatement(sql);
-            comando.setDate(1, (java.sql.Date) secao.getHorario());
+            comando.setString(1, horaSql);
             comando.setDouble(2, secao.getValor());
             comando.setInt(3, idSala);
             comando.setInt(4, idFilme);

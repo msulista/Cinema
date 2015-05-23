@@ -22,12 +22,15 @@ public class SecaoUI {
     private RepositorioFilme listaFilmes;
     private RepositorioSala listaSalas;
     private Date horario;
+    private String horaSql;
 
     public SecaoUI(RepositorioSecao listaSecoes, RepositorioFilme listaFilmes, RepositorioSala listaSalas) {
 
         this.listaSecoes = listaSecoes;
         this.listaFilmes = listaFilmes;
         this.listaSalas = listaSalas;
+        this.horario = horario;
+        this.horaSql = horaSql;
     }
 
     /**
@@ -81,7 +84,8 @@ public class SecaoUI {
         String horarioSessao = Console.lerString("Digite o horário da sessão: ");
         if(DateUtil.verificaHorario(horarioSessao)){
             try {
-                horario = DateUtil.stringToHourPostgre(horarioSessao);
+                horario = DateUtil.stringToHour(horarioSessao);
+                horaSql = horarioSessao;
 
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -91,8 +95,9 @@ public class SecaoUI {
         }
         double valor = Console.lerDouble("Digite valor da sessão: ");
         Secao secao = new Secao(sala, filme, horario, valor);
+        System.out.println("Classe SessaoUI - hora: " + horario);
         listaSecoes.adicionaSecao(secao);
-        dao.inserir(secao, numSala, codFilme);
+        dao.inserir(secao, horarioSessao, numSala, codFilme);
         System.out.println("Sessao das " + horarioSessao + " dadastrada com sucesso!!!" );
     }
 

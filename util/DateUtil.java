@@ -49,9 +49,10 @@ public class DateUtil {
         SimpleDateFormat h = new SimpleDateFormat("HH:mm");
         Date h1 = null;
         h1 = h.parse(hora);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
         hora = format.format(h1);
         System.out.println("Hora formatada: " + hora);
+
         Date horaSql = java.sql.Date.valueOf(hora);
         return horaSql;
     }
