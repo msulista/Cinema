@@ -15,5 +15,6 @@ public interface SessaoDao {
     public void atualizar(Secao secao);
     public List<Secao> buscaPorHorarioEFilme(String titulo);
     public List<Secao> buscaPorHorario(Date horario);
+    public Secao buscaPorID(int id);
     public List<Secao> listar();
 }

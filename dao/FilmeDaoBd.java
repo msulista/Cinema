@@ -56,18 +56,18 @@ public class FilmeDaoBd implements FilmeDao {
     }
 
     @Override
-    public void atualizar(Filme filme) {
+    public void atualizar(Filme filme, int codigo) {
 
-        String sql = "UPDATE Filme SET codigo=?, titulo=?, genero=?, sinopse=?, data_Inicio=?, data_Fim=?";
+        String sql = "UPDATE Filme SET titulo=?, genero=?, sinopse=?, data_Inicio=?, data_Fim=? WHERE codigo = ?";
         try {
             conexao = ConnectionFactory.getConnection();
             comando = conexao.prepareStatement(sql);
-            comando.setInt(1, filme.getCodigo());
-            comando.setString(2, filme.getTitulo());
-            comando.setString(3, filme.getGenero());
-            comando.setString(4, filme.getSinopse());
-            comando.setDate(5, (Date) filme.getDataInicio());
-            comando.setDate(6, (Date) filme.getDataTermino());
+            comando.setString(1, filme.getTitulo());
+            comando.setString(2, filme.getGenero());
+            comando.setString(3, filme.getSinopse());
+            comando.setDate(4, (Date) filme.getDataInicio());
+            comando.setDate(5, (Date) filme.getDataTermino());
+            comando.setInt(6, codigo);
             comando.executeUpdate();
             conexao.close();
         }catch (SQLException e) {

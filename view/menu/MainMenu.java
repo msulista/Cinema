@@ -12,7 +12,7 @@ public class MainMenu {
 
     public static String getOpcoes() {
         return ("\n----------------------------------------\n" +
-                "\t\t###CINE UP###" +
+                "\t\t ###CINE UP###" +
                 "\n--------------------------------------\n"
                 + "1- Menu Filme\n"
                 + "2- Menu Sala\n"

@@ -174,6 +174,33 @@ public class SessaoDaoBd implements SessaoDao{
     }
 
     @Override
+    public Secao buscaPorID(int id){
+        SalaDao salaDao = new SalaDaoBd();
+        FilmeDao filmeDao = new FilmeDaoBd();
+        Secao secao = null;
+        String sql = "SELECT * FROM Sessao WHERE id_sessao = ?";
+        try {
+            conexao = ConnectionFactory.getConnection();
+            comando = conexao.prepareStatement(sql);
+            comando.setInt(1, id);
+            ResultSet resultado = comando.executeQuery();
+            if (resultado.next()){
+                secao = new Secao(salaDao.buscaPorID(resultado.getInt("id_sala")),
+                        filmeDao.buscaPorID(resultado.getInt("id_filme")),
+                        DateUtil.stringToHour(resultado.getString("horario")),
+                        resultado.getDouble("valor"));
+            }
+            conexao.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return secao;
+    }
+    @Override
     public List<Secao> listar() {
         FilmeDao filmeDao = new FilmeDaoBd();
         SalaDao salaDao = new SalaDaoBd();

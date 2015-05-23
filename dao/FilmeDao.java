@@ -11,7 +11,7 @@ public interface FilmeDao {
 
     public void inserir(Filme filme);
     public void deletar(Filme filme);
-    public void atualizar(Filme filme);
+    public void atualizar(Filme filme, int codigo);
     public Filme buscarPorCodigo(int codigo);
     public List<Filme> buscaPorGenero(String genero);
     public Filme buscaPorID(int id);
