@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface SessaoDao {
 
-    public void inserir(Secao secao);
+    public void inserir(Secao secao, String numSala, int codFilme);
     public void deletar(Secao secao);
     public void atualizar(Secao secao);
     public List<Secao> buscaPorHorarioEFilme(String titulo);

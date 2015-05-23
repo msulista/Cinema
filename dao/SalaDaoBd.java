@@ -1,5 +1,6 @@
 package dao;
 
+import banco.ConnectionFactory;
 import model.Sala;
 
 import java.sql.Connection;
@@ -21,12 +22,18 @@ public class SalaDaoBd implements SalaDao{
     public void inserir(Sala sala) {
         String sql = "INSERT INTO Sala (numero, qtd_assentos) VALUES(?,?)";
         try {
+
+            conexao = ConnectionFactory.getConnection();
             comando = conexao.prepareStatement(sql);
+
+
             comando.setString(1, sala.getNumero());
             comando.setInt(2, sala.getQtdAssentos());
             comando.executeUpdate();
             conexao.close();
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -36,11 +43,14 @@ public class SalaDaoBd implements SalaDao{
 
         String sql = "DELETE FROM Sala WHERE numero = ?";
         try {
+            conexao = ConnectionFactory.getConnection();
             comando = conexao.prepareStatement(sql);
             comando.setString(1, sala.getNumero());
             comando.executeUpdate();
             conexao.close();
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -50,6 +60,7 @@ public class SalaDaoBd implements SalaDao{
 
         String sql = "UPDATE Sala SET numero=?, qtd_assentos=?";
         try {
+            conexao = ConnectionFactory.getConnection();
             comando = conexao.prepareStatement(sql);
             comando = conexao.prepareStatement(sql);
             comando.setString(1, sala.getNumero());
@@ -57,6 +68,8 @@ public class SalaDaoBd implements SalaDao{
             comando.executeUpdate();
             conexao.close();
         }catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -67,6 +80,7 @@ public class SalaDaoBd implements SalaDao{
         Sala sala = null;
         String sql = "SELECT * FROM Sala WHERE numero = ?";
         try {
+            conexao = ConnectionFactory.getConnection();
             comando = conexao.prepareStatement(sql);
             comando.setInt(1, numero);
             ResultSet resultado = comando.executeQuery();
@@ -76,6 +90,8 @@ public class SalaDaoBd implements SalaDao{
             }
             conexao.close();
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return sala;
@@ -87,6 +103,7 @@ public class SalaDaoBd implements SalaDao{
         Sala sala = null;
         String sql = "SELECT * FROM Sala";
         try {
+            conexao = ConnectionFactory.getConnection();
             comando = conexao.prepareStatement(sql);
             ResultSet resultado = comando.executeQuery();
             while (resultado.next()){
@@ -96,6 +113,8 @@ public class SalaDaoBd implements SalaDao{
             }
             conexao.close();
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return salaList;

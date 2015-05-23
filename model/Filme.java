@@ -74,7 +74,9 @@ public class Filme {
         return dataInicio;
     }
 
-    public void setDataInicio(Date dataInicio) {
+    public void setDataInicio(Date dataInicio)
+    {
+        System.out.println("DATA: " + dataInicio);
         this.dataInicio = dataInicio;
     }
 

@@ -1,5 +1,6 @@
 package dao;
 
+import banco.ConnectionFactory;
 import model.Filme;
 
 import java.sql.*;
@@ -19,6 +20,7 @@ public class FilmeDaoBd implements FilmeDao {
 
         String sql = "INSERT INTO Filme (codigo, titulo, genero, sinopse, data_Inicio, data_Fim) VALUES(?,?,?,?,?,?)";
         try {
+            conexao = ConnectionFactory.getConnection();
             comando = conexao.prepareStatement(sql);
             comando.setInt(1, filme.getCodigo());
             comando.setString(2, filme.getTitulo());
@@ -30,6 +32,8 @@ public class FilmeDaoBd implements FilmeDao {
             conexao.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
     }
@@ -39,11 +43,14 @@ public class FilmeDaoBd implements FilmeDao {
 
         String sql = "DELETE FROM Filme WHERE codigo = ?";
         try {
+            conexao = ConnectionFactory.getConnection();
             comando = conexao.prepareStatement(sql);
             comando.setInt(1, filme.getCodigo());
             comando.executeUpdate();
             conexao.close();
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -53,6 +60,7 @@ public class FilmeDaoBd implements FilmeDao {
 
         String sql = "UPDATE Filme SET codigo=?, titulo=?, genero=?, sinopse=?, data_Inicio=?, data_Fim=?";
         try {
+            conexao = ConnectionFactory.getConnection();
             comando = conexao.prepareStatement(sql);
             comando.setInt(1, filme.getCodigo());
             comando.setString(2, filme.getTitulo());
@@ -64,6 +72,8 @@ public class FilmeDaoBd implements FilmeDao {
             conexao.close();
         }catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
@@ -72,6 +82,7 @@ public class FilmeDaoBd implements FilmeDao {
         Filme filme = null;
         String sql = "SELECT * FROM Filme WHERE codigo = ?";
         try {
+            conexao = ConnectionFactory.getConnection();
             comando = conexao.prepareStatement(sql);
             comando.setInt(1, codigo);
             ResultSet resultado = comando.executeQuery();
@@ -86,6 +97,8 @@ public class FilmeDaoBd implements FilmeDao {
             conexao.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
         return filme;
     }
@@ -96,6 +109,7 @@ public class FilmeDaoBd implements FilmeDao {
         List<Filme> filmeList = new ArrayList<Filme>();
         String sql = "SELECT * FROM Filme WHERE genero = ?";
         try {
+            conexao = ConnectionFactory.getConnection();
             comando = conexao.prepareStatement(sql);
             comando.setString(1, genero);
             ResultSet resultado = comando.executeQuery();
@@ -111,6 +125,8 @@ public class FilmeDaoBd implements FilmeDao {
             conexao.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
         return filmeList;
     }
@@ -120,6 +136,7 @@ public class FilmeDaoBd implements FilmeDao {
         List<Filme> filmeList = new ArrayList<Filme>();
         String sql = "SELECT * FROM Filme";
         try {
+            conexao = ConnectionFactory.getConnection();
             comando = conexao.prepareStatement(sql);
             ResultSet resultado = comando.executeQuery();
             while(resultado.next()){
@@ -133,6 +150,8 @@ public class FilmeDaoBd implements FilmeDao {
             }
             conexao.close();
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return filmeList;

@@ -69,28 +69,23 @@ public class FilmeUI {
             String sinopse = Console.lerString("Sinopse: ");
             String dataInicioString = Console.lerString("Data de inicio: ");
             if(DateUtil.verificaData(dataInicioString)){
-                try {
-                    dataInicio = DateUtil.stringToDate(dataInicioString);
+                    dataInicio = DateUtil.stringToDatePostgre(dataInicioString);
+                   // System.out.println("==>"  + dataInicio);
 
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
             }else {
                 System.out.println("Data inválida!!!");
             }
             String dataFinalString = Console.lerString("Data de termino: ");
             if(DateUtil.verificaData(dataFinalString)){
-                try {
-                    dataFinal = DateUtil.stringToDate(dataFinalString);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+
+                    dataFinal = DateUtil.stringToDatePostgre(dataFinalString);
+
             }else {
                 System.out.println("Data inválida!!!");
             }
             Filme filme = new Filme(codFilme, titulo, genero, sinopse, dataInicio, dataFinal);
-            listaFilmes.addFilmes(filme);
-            dao.inserir(filme);
+            listaFilmes.addFilmes(filme);// insere no repositorio
+            dao.inserir(filme); //insere no bd
             System.out.println("Filme " + titulo + " foi cadastrado com sucesso!!!");
         }
     }
@@ -99,6 +94,7 @@ public class FilmeUI {
      * Método listaFilmesCadastrados responsavel por listar todos os filmes cadastrados.
      */
     public void listaFilmesCadastrados(){
+        FilmeDao dao = new FilmeDaoBd();
         System.out.println("===============================================\n");
         System.out.println(String.format("%-10s", "COD FILME") + "\t" +
                 String.format("%-20s", "TITULO") + "\t" +
@@ -106,7 +102,7 @@ public class FilmeUI {
                 String.format("%-20s", "DATA INICIO") + "\t" +
                 String.format("%-20s", "DATA TERMINO") + "\t" +
                 String.format("%-20s", "SINOPSE"));
-        for (Filme filme : listaFilmes.getFilmes()){
+        for (Filme filme : dao.listar()){
             System.out.println(String.format("%-10s", filme.getCodigo()) + "\t" +
                     String.format("%-20s", filme.getTitulo()) + "\t" +
                     String.format("%-20s", filme.getGenero()) + "\t" +

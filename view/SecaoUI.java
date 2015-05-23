@@ -1,7 +1,6 @@
 package view;
 
-import dao.SessaoDao;
-import dao.SessaoDaoBd;
+import dao.*;
 import model.Filme;
 import model.Sala;
 import model.Secao;
@@ -65,20 +64,24 @@ public class SecaoUI {
      */
     public void cadastrarSecao(){
         SessaoDao dao = new SessaoDaoBd();
+        FilmeDao daoFilme = new FilmeDaoBd();
+        SalaDao daoSala = new SalaDaoBd();
+
         System.out.println("Escolha um dos filme abaixo: ");
         new FilmeUI(listaFilmes).listaFilmesCadastrados();
+
         int codFilme = Console.lerInt("Digite o código do filme desejado: ");
         Filme filme = listaFilmes.buscaFilmePorCodigo(codFilme);
 
         System.out.println("Escolha uma das salas abaixo: ");
         new SalaUI(listaSalas).listaSalasCadastradas();
-        String numeroSala = Console.lerString("Digite o numero da sala desejada: ");
-        Sala sala = listaSalas.buscaSalaPorNumero(numeroSala);
+        String numSala = Console.lerString("Digite o numero da sala desejada: ");
+        Sala sala = listaSalas.buscaSalaPorNumero(numSala);
 
         String horarioSessao = Console.lerString("Digite o horário da sessão: ");
         if(DateUtil.verificaHorario(horarioSessao)){
             try {
-                horario = DateUtil.stringToHour(horarioSessao);
+                horario = DateUtil.stringToHourPostgre(horarioSessao);
 
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -89,7 +92,7 @@ public class SecaoUI {
         double valor = Console.lerDouble("Digite valor da sessão: ");
         Secao secao = new Secao(sala, filme, horario, valor);
         listaSecoes.adicionaSecao(secao);
-        dao.inserir(secao);
+        dao.inserir(secao, numSala, codFilme);
         System.out.println("Sessao das " + horarioSessao + " dadastrada com sucesso!!!" );
     }
 

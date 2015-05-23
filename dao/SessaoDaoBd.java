@@ -1,5 +1,6 @@
 package dao;
 
+import banco.ConnectionFactory;
 import model.Secao;
 
 import java.sql.Connection;
@@ -19,25 +20,46 @@ public class SessaoDaoBd implements SessaoDao{
     private PreparedStatement comando;
 
     @Override
-    public void inserir(Secao secao) {
-        String numeroSala = secao.getSala().getNumero();
-        int codigoFilme = secao.getFilme().getCodigo();
-        String slqSala = "SELECT id_sala, id_filme FROM Sala, Filme WHERE numero = ? AND codigo = ?";
+    public void inserir(Secao secao, String numSala, int codFilme) {
+
         int idSala = 0;
         int idFilme =0;
+        String slqSala = "SELECT id_sala FROM Sala WHERE numero = ?";
         try {
+            conexao = ConnectionFactory.getConnection();
             comando = conexao.prepareStatement(slqSala);
-            comando.setString(1, numeroSala);
-            comando.setInt(2, codigoFilme);
+            comando.setString(1, numSala);
             ResultSet resultado = comando.executeQuery();
-            idSala = resultado.getInt("id_sala");
-            idFilme = resultado.getInt("id_filme");
+            if (resultado.next()) {
+                idSala = resultado.getInt("id_sala");
+            }
             conexao.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
+        String slqFilme = "SELECT id_filme FROM Filme WHERE codigo = ?";
+        try {
+            conexao = ConnectionFactory.getConnection();
+            comando = conexao.prepareStatement(slqFilme);
+            comando.setInt(1, codFilme);
+            ResultSet resultado = comando.executeQuery();
+            if (resultado.next()) {
+                idFilme = resultado.getInt("id_filme");
+            }
+            conexao.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        System.out.println("idFilme: " + idFilme);
+        System.out.println("idSala: " + idSala);
+
         String sql = "INSERT INTO Sessao (horario, valor, id_sala, id_filme) VALUES(?,?,?,?)";
         try {
+            conexao = ConnectionFactory.getConnection();
             comando = conexao.prepareStatement(sql);
             comando.setDate(1, (java.sql.Date) secao.getHorario());
             comando.setDouble(2, secao.getValor());
@@ -47,6 +69,8 @@ public class SessaoDaoBd implements SessaoDao{
             conexao.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
@@ -55,11 +79,14 @@ public class SessaoDaoBd implements SessaoDao{
 
         String sql = "DELETE FROM Sessao WHERE horario = ?";
         try {
+            conexao = ConnectionFactory.getConnection();
             comando = conexao.prepareStatement(sql);
             comando.setDate(1, (java.sql.Date) secao.getHorario());
             comando.executeUpdate();
             conexao.close();
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -73,6 +100,7 @@ public class SessaoDaoBd implements SessaoDao{
         int idSala = 0;
         int idFilme =0;
         try {
+            conexao = ConnectionFactory.getConnection();
             comando = conexao.prepareStatement(slq2);
             comando.setString(1, numeroSala);
             comando.setInt(2, codigoFilme);
@@ -82,10 +110,13 @@ public class SessaoDaoBd implements SessaoDao{
             conexao.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
         String sql = "UPDATE Sessao SET horario=?, valor=?, id_sala=?, id_filme=?";
         try {
+            conexao = ConnectionFactory.getConnection();
             comando = conexao.prepareStatement(sql);
             comando.setDate(1, (java.sql.Date) secao.getHorario());
             comando.setDouble(2, secao.getValor());
@@ -94,6 +125,8 @@ public class SessaoDaoBd implements SessaoDao{
             comando.executeUpdate();
             conexao.close();
         }catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

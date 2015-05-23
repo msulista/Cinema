@@ -7,6 +7,8 @@ import repositorio.RepositorioSala;
 import util.Console;
 import view.menu.SalaMenu;
 
+import java.util.List;
+
 /**
  * Created by marcus.rodrigues on 30/03/2015.
  */
@@ -67,11 +69,17 @@ public class SalaUI {
      * Método listaDeSalasCadastradas lista todas as salas já cadastradas.
      */
     public void listaSalasCadastradas(){
+        SalaDao dao = new SalaDaoBd();
         System.out.println("===============================================\n");
         System.out.println(String.format("%-10s", "NUMERO SALA") + "\t" +
                 String.format("%-20s", "QUANTIDADE DE ASSENTOS"));
-
+    /*
         for (Sala sala : listaSalas.getSalas()){
+            System.out.println(String.format("%-10s", sala.getNumero()) + "\t" +
+                    String.format("%-20s", sala.getQtdAssentos()));
+        }
+     */
+        for (Sala sala : dao.listar()){
             System.out.println(String.format("%-10s", sala.getNumero()) + "\t" +
                     String.format("%-20s", sala.getQtdAssentos()));
         }

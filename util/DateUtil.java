@@ -1,5 +1,8 @@
 package util;
 
+import com.sun.org.apache.bcel.internal.generic.RET;
+
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -10,8 +13,7 @@ import java.util.GregorianCalendar;
  * Created by marcus.rodrigues on 11/04/2015.
  */
 public class DateUtil {
-    public static boolean verificaData(String data)
-    {
+    public static boolean verificaData(String data){
         return(data.matches("\\d{2}/\\d{2}/\\d{4}"));
     }
     public static boolean verificaHorario(String horario)
@@ -19,18 +21,42 @@ public class DateUtil {
         return(horario.matches("\\d{2}:\\d{2}"));
     }
 
-    public static Date stringToDate(String data) throws ParseException
-    {
+
+
+    public static Date stringToDate(String data) throws ParseException{
         return(new SimpleDateFormat("dd/MM/yyyy").parse(data));
     }
 
-    public static Date stringToHour(String data) throws ParseException
-    {
-        return(new SimpleDateFormat("HH:mm").parse(data));
+    public static Date stringToDatePostgre(String data){
+        SimpleDateFormat f = new SimpleDateFormat("dd/mm/yyyy");
+        Date d1 = null;
+        try {
+            d1 = f.parse(data);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+        data = format.format(d1);
+        Date dataSql = java.sql.Date.valueOf(data);
+        return dataSql;
     }
 
-    public static Date stringToDateHour(String data) throws ParseException
-    {
+    public static Date stringToHour(String data) throws ParseException{
+
+        return(new SimpleDateFormat("HH:mm").parse(data));
+    }
+    public static Date stringToHourPostgre(String hora) throws ParseException{
+        SimpleDateFormat h = new SimpleDateFormat("HH:mm");
+        Date h1 = null;
+        h1 = h.parse(hora);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        hora = format.format(h1);
+        System.out.println("Hora formatada: " + hora);
+        Date horaSql = java.sql.Date.valueOf(hora);
+        return horaSql;
+    }
+
+    public static Date stringToDateHour(String data) throws ParseException{
         return(new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(data));
     }
 
@@ -41,6 +67,7 @@ public class DateUtil {
     public static String hourToStringHour(Date data){
         return(new SimpleDateFormat("HH:mm").format(data));
     }
+
     public static String dateHourToString(Date data){
         SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         String dataString = formatador.format(data);
