@@ -21,8 +21,6 @@ public class DateUtil {
         return(horario.matches("\\d{2}:\\d{2}"));
     }
 
-
-
     public static Date stringToDate(String data) throws ParseException{
         return(new SimpleDateFormat("dd/MM/yyyy").parse(data));
     }
@@ -81,17 +79,35 @@ public class DateUtil {
         return(dataString);
     }
 
-    public static Date addDays(Date atual, int days)
-    {
+    public static Date addDays(Date atual, int days){
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(atual);
         calendar.add(Calendar.DAY_OF_MONTH, days);
         return(calendar.getTime());
     }
 
-    public static long differenceInDays(Date start, Date end)
-    {
+    public static long differenceInDays(Date start, Date end){
         long dif = end.getTime() - start.getTime();
         return(Math.abs(dif/(24*60*60*1000)));
+    }
+
+    public static String pegaHoraDoSistema(){
+
+        Calendar calendar = new GregorianCalendar();
+        SimpleDateFormat out = new SimpleDateFormat("HH:mm:ss");
+        Date date = new Date();
+        calendar.setTime(date);
+        String hora = out.format(calendar.getTime());
+        return hora;
+    }
+
+    public static String pegaDataDoSistema(){
+
+        Calendar calendar = new GregorianCalendar();
+        SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        calendar.setTime(date);
+        String data = out.format(calendar.getTime());
+        return data;
     }
 }

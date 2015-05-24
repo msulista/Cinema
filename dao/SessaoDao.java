@@ -18,4 +18,5 @@ public interface SessaoDao {
     public List<Secao> buscaSessaoPorHorario(String horario);
     public Secao buscaPorID(int id);
     public List<Secao> listar();
+    public int retornaIDSessao(int id_sala, int id_filme, String hora);
 }

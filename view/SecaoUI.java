@@ -35,6 +35,14 @@ public class SecaoUI {
         this.horaSql = horaSql;
     }
 
+    public SecaoUI() {
+        this.listaSecoes = listaSecoes;
+        this.listaFilmes = listaFilmes;
+        this.listaSalas = listaSalas;
+        this.horario = horario;
+        this.horaSql = horaSql;
+    }
+
     /**
      * Método executar contem um switch com as opções de ação do usuario.
      */

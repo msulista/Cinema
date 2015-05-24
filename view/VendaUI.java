@@ -1,5 +1,9 @@
 package view;
 
+import dao.SessaoDao;
+import dao.SessaoDaoBd;
+import dao.VendaDao;
+import dao.VendaDaoBd;
 import model.Secao;
 import model.Venda;
 import repositorio.RepositorioFilme;
@@ -69,37 +73,40 @@ public class VendaUI {
      * por fim cria uma venda e a adiciona a lista de vendas e diminui o numero de cadeiras disponiveis.
      */
     public void cadastrarVendaInteira(){
-        System.out.println("Escolha um dos filme abaixo: ");
-        new SecaoUI(listaSessoes,listaFilmes, listaSalas).listaSessoesCadastradas();
-        int codFilme = Console.lerInt("Digite o código do filme desejado: ");
-        String horario = Console.lerString("Digite o horário de filme desejado: ");
-        if(DateUtil.verificaHorario(horario)){
-            try {
-                horaFilme = DateUtil.stringToHour(horario);
+        VendaDao vendaDao = new VendaDaoBd();
+        System.out.println("Escolha uma das Sessões abaixo: ");
+        SessaoDao sessaoDao = new SessaoDaoBd();
+        SecaoUI secaoUI = new SecaoUI();
+        secaoUI.listaSessoesCadastradas();
 
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }else {
-            System.out.println("Horário inválido!!!");
-        }
-        Secao sessao = listaSessoes.buscaSecaoPorCodFilmeEHorario(codFilme, horaFilme);
+        int id_sessao = Console.lerInt("Digite o ID da sessão desejada: ");
+        Secao sessao = sessaoDao.buscaPorID(id_sessao);
+
         System.out.printf("\n-----------------------------" +
                 "\n\tVALOR INGRESSO: R$ %.2f\n", listaVendas.valorIngressoSemDesconto(sessao));
         System.out.println("\n-----------------------------" +
                 "\n1 - Confirma venda\n" +
-                "0 - Cancela Venda ");
+                  "0 - Cancela Venda ");
         int confirma = Console.lerInt("Digite a opção desejada: ");
-        if (confirma == 1 && sessao.getSala().getQtdAssentos() > 0){
 
-            listaVendas.addVendas(new Venda(sessao, listaVendas.valorIngressoSemDesconto(sessao)));
-            sessao.getSala().diminuiAssentos();
+        if (confirma == 1){
+
+            Venda venda = new Venda(sessao, listaVendas.valorIngressoSemDesconto(sessao));
+           // sessao.getSala().diminuiAssentos();
+
+            String horaSistema = DateUtil.pegaHoraDoSistema();
+            // System.out.println("Hora agora: "+ horaSistema);
+
+            Date dataSistema = DateUtil.stringToDatePostgre(DateUtil.pegaDataDoSistema());
+
+
+            vendaDao.inserir(venda, dataSistema, horaSistema, id_sessao);
             System.out.println("\n---------------------------" +
                     "\nVenda realizada com sucesso!!!" +
                     "\n---------------------------");
         }else {
             System.out.println("\n------------------------------------------" +
-                    "Venda Canceladaou ingresso indisponivel!!!" +
+                    "Venda Cancelada ou ingresso indisponivel!!!" +
                     "\n------------------------------------------");
         }
     }
@@ -109,38 +116,41 @@ public class VendaUI {
      * por fim cria uma venda e a adiciona a lista de vendas e diminui o numero de cadeiras disoniveis.
      */
     public void cadastrarVendaMeiaEntrada(){
-        System.out.println("Escolha um dos filme abaixo: ");
-        new SecaoUI(listaSessoes,listaFilmes, listaSalas).listaSessoesCadastradas();
-        int codFilme = Console.lerInt("Digite o código do filme desejado: ");
-        String horario = Console.lerString("Digite o horário de filme desejado: ");
-        if(DateUtil.verificaHorario(horario)){
-            try {
-                horaFilme = DateUtil.stringToHour(horario);
+        VendaDao vendaDao = new VendaDaoBd();
+        System.out.println("Escolha uma das Sessões abaixo: ");
+        SessaoDao sessaoDao = new SessaoDaoBd();
+        SecaoUI secaoUI = new SecaoUI();
+        secaoUI.listaSessoesCadastradas();
 
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }else {
-            System.out.println("Horário inválido!!!");
-        }
-        Secao sessao = listaSessoes.buscaSecaoPorCodFilmeEHorario(codFilme, horaFilme);
+        int id_sessao = Console.lerInt("Digite o ID da sessão desejada: ");
+        Secao sessao = sessaoDao.buscaPorID(id_sessao);
+
         System.out.printf("\n-----------------------------" +
-                "\n\tVALOR INGRESSO: R$%.2f", listaVendas.ValorIngressoComDesconto(sessao));
-        System.out.println("\n----------------------------" +
+                "\n\tVALOR INGRESSO: R$ %.2f\n", listaVendas.ValorIngressoComDesconto(sessao));
+        System.out.println("\n-----------------------------" +
                 "\n1 - Confirma venda\n" +
                 "0 - Cancela Venda ");
         int confirma = Console.lerInt("Digite a opção desejada: ");
-        if (confirma == 1 && sessao.getSala().getQtdAssentos() > 0){
 
-            listaVendas.addVendas(new Venda(sessao, listaVendas.ValorIngressoComDesconto(sessao)));
-            sessao.getSala().diminuiAssentos();
+        if (confirma == 1){
+
+            Venda venda = new Venda(sessao, listaVendas.ValorIngressoComDesconto(sessao));
+            // sessao.getSala().diminuiAssentos();
+
+            String horaSistema = DateUtil.pegaHoraDoSistema();
+            // System.out.println("Hora agora: "+ horaSistema);
+
+            Date dataSistema = DateUtil.stringToDatePostgre(DateUtil.pegaDataDoSistema());
+
+
+            vendaDao.inserir(venda, dataSistema, horaSistema, id_sessao);
             System.out.println("\n---------------------------" +
-                                 "\nVenda realizada com sucesso!!!" +
-                                 "\n---------------------------");
+                    "\nVenda realizada com sucesso!!!" +
+                    "\n---------------------------");
         }else {
             System.out.println("\n------------------------------------------" +
-                                 "Venda Canceladaou ingresso indisponivel!!!" +
-                                "\n------------------------------------------");
+                    "Venda Cancelada ou ingresso indisponivel!!!" +
+                    "\n------------------------------------------");
         }
     }
 
@@ -148,13 +158,14 @@ public class VendaUI {
      * Lista todas as vendas já cadastradas
      */
     public void listaVendasCadastradas(){
+        VendaDao vendaDao = new VendaDaoBd();
         System.out.println("===============================================\n");
         System.out.println(String.format("%-10s", "COD FILME") + "\t" +
                 String.format("%-20s", "TITULO") + "\t" +
                 String.format("%-20s", "SALA") + "\t" +
                 String.format("%-20s", "HORÁRIO") + "\t" +
                 String.format("%-20s", "VALOR"));
-        for (Venda venda : listaVendas.getVenda()){
+        for (Venda venda : vendaDao.listar()){
             System.out.println(String.format("%-10s", venda.getSecao().getFilme().getCodigo()) + "\t" +
                     String.format("%-20s", venda.getSecao().getFilme().getTitulo()) + "\t" +
                     String.format("%-20s", venda.getSecao().getSala().getNumero()) + "\t" +

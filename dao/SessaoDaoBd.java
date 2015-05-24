@@ -218,4 +218,31 @@ public class SessaoDaoBd implements SessaoDao{
         return secaoList;
     }
 
+    @Override
+    public int retornaIDSessao(int id_sala, int id_filme, String hora) {
+        int idSessao = 0;
+        String slqSessao = "SELECT id_Sessao FROM Sessao " +
+                            "WHERE " +
+                                "id_sala = ? AND " +
+                                "id_filme = ? AND " +
+                                "horario = ?";
+        try {
+            conexao = ConnectionFactory.getConnection();
+            comando = conexao.prepareStatement(slqSessao);
+            comando.setInt(1, id_sala);
+            comando.setInt(1, id_filme);
+            comando.setString(1, hora);
+            ResultSet resultado = comando.executeQuery();
+            if (resultado.next()) {
+                idSessao = resultado.getInt("id_sessao");
+            }
+            conexao.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return idSessao;
+    }
+
 }
