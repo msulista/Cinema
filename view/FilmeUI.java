@@ -27,6 +27,7 @@ public class FilmeUI {
     public FilmeUI(RepositorioFilme listaFilmes) {
         this.listaFilmes = listaFilmes;
     }
+    public FilmeUI(){}
 
     /**
      * Método executar contem um switch com as opções de ação do usuario.

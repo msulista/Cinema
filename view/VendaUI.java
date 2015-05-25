@@ -16,6 +16,7 @@ import view.menu.VendaMenu;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by marcus.rodrigues on 12/04/2015.
@@ -57,7 +58,10 @@ public class VendaUI {
                     listaVendasCadastradas();
                     break;
                 }
-
+                case VendaMenu.OP_RELATORIO_FILME:{
+                    relatorioDeVendaPorFilme();
+                    break;
+                }
                 case VendaMenu.OP_VOLTAR:{
                     System.out.println("Voltar ao menu principal!!!");
                     break;
@@ -160,17 +164,49 @@ public class VendaUI {
     public void listaVendasCadastradas(){
         VendaDao vendaDao = new VendaDaoBd();
         System.out.println("===============================================\n");
-        System.out.println(String.format("%-10s", "COD FILME") + "\t" +
+        System.out.println(String.format("%-10s", "ID VENDA") + "\t" +
+                String.format("%-10s", "COD FILME") + "\t" +
                 String.format("%-20s", "TITULO") + "\t" +
                 String.format("%-20s", "SALA") + "\t" +
                 String.format("%-20s", "HORÁRIO") + "\t" +
                 String.format("%-20s", "VALOR"));
         for (Venda venda : vendaDao.listar()){
-            System.out.println(String.format("%-10s", venda.getSecao().getFilme().getCodigo()) + "\t" +
+            System.out.println(String.format("%-10s", venda.getId()) + "\t" +
+                    String.format("%-10s", venda.getSecao().getFilme().getCodigo()) + "\t" +
                     String.format("%-20s", venda.getSecao().getFilme().getTitulo()) + "\t" +
                     String.format("%-20s", venda.getSecao().getSala().getNumero()) + "\t" +
                     String.format("%-20s", DateUtil.hourToStringHour(venda.getSecao().getHorario())) + "\t" +
                     String.format("%-20s", venda.getValor()));
         }
+    }
+
+    public void relatorioDeVendaPorFilme(){
+        VendaDao vendaDao = new VendaDaoBd();
+        FilmeUI filmeUI = new FilmeUI();
+        double arrecadacaoTotal = 0;
+
+        filmeUI.listaFilmesCadastrados();
+        int cod_Filme = Console.lerInt("Digite Codigo do Filme: ");
+
+        System.out.println("================RELATÓRIO======================\n");
+        System.out.println(String.format("%-10s", "ID VENDA") + "\t" +
+                String.format("%-10s", "COD FILME") + "\t" +
+                String.format("%-20s", "TITULO") + "\t" +
+                String.format("%-20s", "SALA") + "\t" +
+                String.format("%-20s", "HORÁRIO") + "\t" +
+                String.format("%-20s", "VALOR"));
+        List<Venda> vendaList = vendaDao.buscaPorFilme(cod_Filme);
+        for (Venda venda : vendaList){
+            System.out.println(String.format("%-10s", venda.getId()) + "\t" +
+                    String.format("%-10s", venda.getSecao().getFilme().getCodigo()) + "\t" +
+                    String.format("%-20s", venda.getSecao().getFilme().getTitulo()) + "\t" +
+                    String.format("%-20s", venda.getSecao().getSala().getNumero()) + "\t" +
+                    String.format("%-20s", DateUtil.hourToStringHour(venda.getSecao().getHorario())) + "\t" +
+                    String.format("%-20s", venda.getValor()));
+            arrecadacaoTotal = arrecadacaoTotal + venda.getValor();
+        }
+        System.out.println("==============================================\n");
+        System.out.println(String.format("%-10s", "VALOR TOTAL ARECADADO: R$") + arrecadacaoTotal);
+
     }
 }

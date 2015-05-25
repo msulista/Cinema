@@ -10,6 +10,7 @@ public class Venda {
     private Secao secao;
     private int contadorAssentos;
     private double valor;
+    private int id;
 
     /**
      * Método construtor da Classe Venda
@@ -20,6 +21,11 @@ public class Venda {
     public Venda(Secao secao, double valor) {
         this.secao = secao;
         this.valor = valor;
+    }
+    public Venda(Secao secao, double valor, int id) {
+        this.secao = secao;
+        this.valor = valor;
+        this.id = id;
     }
 
     //Métodos Getters e Setters
@@ -43,4 +49,7 @@ public class Venda {
         this.contadorAssentos = contadorAssentos;
     }
 
+    public int getId() {
+        return id;
+    }
 }

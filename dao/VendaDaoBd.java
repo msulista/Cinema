@@ -53,12 +53,52 @@ public class VendaDaoBd implements VendaDao {
 
     @Override
     public List<Venda> buscaPorFilme(int cod_filme) {
-        return null;
+
+        List<Venda> vendaList = new ArrayList<Venda>();
+
+        String sql = "SELECT Venda.id_venda FROM Venda, Sessao, Filme\n" +
+                "WHERE\n" +
+                "\tVenda.id_sessao = Sessao.id_sessao AND\n" +
+                "\tSessao.id_filme = Filme.id_filme AND\n" +
+                "\tFilme.codigo = ?;";
+        try {
+            conexao = ConnectionFactory.getConnection();
+            comando = conexao.prepareStatement(sql);
+            comando.setInt(1, cod_filme);
+            ResultSet resultado = comando.executeQuery();
+            while(resultado.next()){
+                Venda venda = buscaPorID(resultado.getInt("id_venda"));
+                vendaList.add(venda);
+            }
+            conexao.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return vendaList;
     }
 
     @Override
     public Venda buscaPorID(int id) {
-        return null;
+        SessaoDao sessaoDao = new SessaoDaoBd();
+        Venda venda = null;
+        String sql = "SELECT * FROM Venda WHERE id_sessao = ?";
+        try {
+            conexao = ConnectionFactory.getConnection();
+            comando = conexao.prepareStatement(sql);
+            comando.setInt(1, id);
+            ResultSet resultado = comando.executeQuery();
+            if (resultado.next()){
+                venda = new Venda(sessaoDao.buscaPorID(resultado.getInt("id_sessao")), resultado.getDouble("valor_venda"), resultado.getInt("id_venda"));
+            }
+            conexao.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return venda;
     }
 
     @Override
@@ -75,7 +115,7 @@ public class VendaDaoBd implements VendaDao {
             comando = conexao.prepareStatement(sql);
             ResultSet resultado = comando.executeQuery();
             while(resultado.next()){
-                Venda venda = new Venda(sessaoDao.buscaPorID(resultado.getInt("id_sessao")), resultado.getDouble("valor_venda"));
+                Venda venda = new Venda(sessaoDao.buscaPorID(resultado.getInt("id_sessao")), resultado.getDouble("valor_venda"), resultado.getInt("id_venda"));
                 vendaList.add(venda);
             }
             conexao.close();
