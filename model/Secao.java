@@ -14,6 +14,7 @@ public class Secao {
     private Date horario;
     private double valor;
     private int id;
+    private int contadorDeCadeirasDisponiveis;
 
     /**
      * Método cosntrutor da classe Sessao
@@ -29,12 +30,13 @@ public class Secao {
         this.horario = horario;
         this.valor = valor;
     }
-    public Secao(Sala sala, Filme filme, Date horario, double valor, int id) {
+    public Secao(Sala sala, Filme filme, Date horario, double valor, int id, int contadorDeCadeirasDisponiveis) {
         this.sala = sala;
         this.filme = filme;
         this.horario = horario;
         this.valor = valor;
         this.id = id;
+        this.contadorDeCadeirasDisponiveis = contadorDeCadeirasDisponiveis;
     }
 
     //Métodos Getters e Setters
@@ -72,5 +74,13 @@ public class Secao {
 
     public int getId() {
         return id;
+    }
+
+    public int getContadorDeCadeirasDisponiveis() {
+        return contadorDeCadeirasDisponiveis;
+    }
+
+    public void setContadorDeCadeirasDisponiveis(int contadorDeCadeirasDisponiveis) {
+        this.contadorDeCadeirasDisponiveis = contadorDeCadeirasDisponiveis;
     }
 }
