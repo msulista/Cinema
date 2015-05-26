@@ -52,7 +52,7 @@ public class VendaDaoBd implements VendaDao {
     }
 
     @Override
-    public List<Venda> buscaPorFilme(int cod_filme) {
+    public List<Venda> buscaVendasPorCodFilme(int cod_filme) {
 
         List<Venda> vendaList = new ArrayList<Venda>();
 

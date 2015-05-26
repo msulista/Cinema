@@ -13,7 +13,7 @@ public interface VendaDao {
     public void inserir(Venda venda, Date data,String hora, int id_sessao);
     public void deletar(Venda venda);
     public void atualizar(Venda venda, int id_venda);
-    public List<Venda> buscaPorFilme(int cod_filme);
+    public List<Venda> buscaVendasPorCodFilme(int cod_filme);
     public Venda buscaPorID(int id);
     public List<Venda> listar();
     public int retornaIDVenda(String num_sala, String hora_sessao);
