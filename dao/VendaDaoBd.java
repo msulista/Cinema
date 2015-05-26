@@ -23,7 +23,6 @@ public class VendaDaoBd implements VendaDao {
 
     @Override
     public void inserir(Venda venda, Date data, String hora, int id_sessao) {
-
         String sql = "INSERT INTO Venda (valor_venda, data_venda, hora_venda, id_sessao) VALUES(?,?,?,?)";
         try {
             conexao = ConnectionFactory.getConnection();
@@ -53,7 +52,6 @@ public class VendaDaoBd implements VendaDao {
 
     @Override
     public List<Venda> buscaVendasPorCodFilme(int cod_filme) {
-
         List<Venda> vendaList = new ArrayList<Venda>();
 
         String sql = "SELECT Venda.id_venda FROM Venda, Sessao, Filme\n" +
@@ -83,7 +81,7 @@ public class VendaDaoBd implements VendaDao {
     public Venda buscaPorID(int id) {
         SessaoDao sessaoDao = new SessaoDaoBd();
         Venda venda = null;
-        String sql = "SELECT * FROM Venda WHERE id_sessao = ?";
+        String sql = "SELECT * FROM Venda WHERE id_venda = ?";
         try {
             conexao = ConnectionFactory.getConnection();
             comando = conexao.prepareStatement(sql);

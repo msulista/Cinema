@@ -195,8 +195,8 @@ public class VendaUI {
                 String.format("%-20s", "SALA") + "\t" +
                 String.format("%-20s", "HORÁRIO") + "\t" +
                 String.format("%-20s", "VALOR"));
-        List<Venda> vendaList = vendaDao.buscaPorFilme(cod_Filme);
-        for (Venda venda : vendaList){
+        //List<Venda> vendaList = vendaDao.buscaVendasPorCodFilme(cod_Filme);
+        for (Venda venda : vendaDao.buscaVendasPorCodFilme(cod_Filme)){
             System.out.println(String.format("%-10s", venda.getId()) + "\t" +
                     String.format("%-10s", venda.getSecao().getFilme().getCodigo()) + "\t" +
                     String.format("%-20s", venda.getSecao().getFilme().getTitulo()) + "\t" +
