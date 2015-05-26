@@ -16,4 +16,5 @@ public interface SalaDao {
     public Sala buscaPorID(int id);
     public List<Sala> listar();
     public int retornaIDSala(String numero);
+    public int retornaQtdAssentos(String numero);
 }

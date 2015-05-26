@@ -30,6 +30,13 @@ public class Secao {
         this.horario = horario;
         this.valor = valor;
     }
+    public Secao(Sala sala, Filme filme, Date horario, double valor, int id) {
+        this.sala = sala;
+        this.filme = filme;
+        this.horario = horario;
+        this.valor = valor;
+        this.id = id;
+    }
     public Secao(Sala sala, Filme filme, Date horario, double valor, int id, int contadorDeCadeirasDisponiveis) {
         this.sala = sala;
         this.filme = filme;

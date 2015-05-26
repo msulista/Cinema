@@ -28,7 +28,7 @@ public class SessaoDaoBd implements SessaoDao{
         int idSala = salaDao.retornaIDSala(numSala);
         int idFilme = filmeDao.retornaIDFilme(codFilme);
 
-        String sql = "INSERT INTO Sessao (horario, valor, id_sala, id_filme) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO Sessao (horario, valor, id_sala, id_filme, cont_cadeira) VALUES(?,?,?,?,?)";
         try {
             conexao = ConnectionFactory.getConnection();
             comando = conexao.prepareStatement(sql);
@@ -36,6 +36,7 @@ public class SessaoDaoBd implements SessaoDao{
             comando.setDouble(2, secao.getValor());
             comando.setInt(3, idSala);
             comando.setInt(4, idFilme);
+            comando.setInt(5, secao.getContadorDeCadeirasDisponiveis());
             comando.executeUpdate();
             conexao.close();
         } catch (SQLException e) {
@@ -204,7 +205,8 @@ public class SessaoDaoBd implements SessaoDao{
                                         filmeDao.buscaPorID(resultado.getInt("id_filme")),
                                                 DateUtil.stringToHour(resultado.getString("horario")),
                                                 resultado.getDouble("valor"),
-                                                resultado.getInt("id_sessao"));
+                                                resultado.getInt("id_sessao"),
+                                                resultado.getInt("cont_cadeira"));
                 secaoList.add(secao);
             }
             conexao.close();

@@ -117,6 +117,7 @@ public class SecaoUI {
         }
         double valor = Console.lerDouble("Digite valor da sessão: ");
         Secao secao = new Secao(sala, filme, horario, valor);
+        secao.setContadorDeCadeirasDisponiveis(daoSala.retornaQtdAssentos(numSala));
         System.out.println("Classe SessaoUI - hora: " + horario);
         listaSecoes.adicionaSecao(secao);
         dao.inserir(secao, horarioSessao, numSala, codFilme);
