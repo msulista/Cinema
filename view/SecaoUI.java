@@ -237,6 +237,29 @@ public class SecaoUI {
         }
     }
 
+    public void listaSessoesCadastradasDisponiveisParaVenda(){
+        SessaoDao dao = new SessaoDaoBd();
+        System.out.println("===============================================\n");
+        System.out.println(String.format("%-10s", "ID SESSÃO") + "\t" +
+                String.format("%-20s", "TITULO") + "\t" +
+                String.format("%-20s", "SALA") + "\t" +
+                String.format("%-20s", "HORÁRIO") + "\t" +
+                String.format("%-20s", "DATA INICIO") + "\t" +
+                String.format("%-20s", "DATA TERMINO") + "\t" +
+                String.format("%-20s", "VALOR") + "\t" +
+                String.format("%-20s", "QTD DISPONIVEL"));
+        for (Secao secao : dao.listarSessoesDisponiveisParaVenda()){
+            System.out.println(String.format("%-10s", secao.getId()) + "\t" +
+                    String.format("%-20s", secao.getFilme().getTitulo()) + "\t" +
+                    String.format("%-20s", secao.getSala().getNumero()) + "\t" +
+                    String.format("%-20s", DateUtil.hourToStringHour(secao.getHorario())) + "\t" +
+                    String.format("%-20s", DateUtil.dateToStringDate(secao.getFilme().getDataInicio())) + "\t" +
+                    String.format("%-20s", DateUtil.dateToStringDate(secao.getFilme().getDataTermino())) + "\t" +
+                    String.format("%-20s", secao.getValor()) + "\t" +
+                    String.format("%-20s", secao.getContadorDeCadeirasDisponiveis()));
+        }
+    }
+
     public void buscaSessaoPorCodFilme(){
         SessaoDao sessaoDao = new SessaoDaoBd();
         FilmeDao filmeDao = new FilmeDaoBd();

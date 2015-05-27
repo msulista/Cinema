@@ -81,7 +81,7 @@ public class VendaUI {
         System.out.println("Escolha uma das Sessões abaixo: ");
         SessaoDao sessaoDao = new SessaoDaoBd();
         SecaoUI secaoUI = new SecaoUI();
-        secaoUI.listaSessoesCadastradas();
+        secaoUI.listaSessoesCadastradasDisponiveisParaVenda();
 
         int id_sessao = Console.lerInt("Digite o ID da sessão desejada: ");
         Secao sessao = sessaoDao.buscaPorID(id_sessao);
@@ -124,7 +124,7 @@ public class VendaUI {
         System.out.println("Escolha uma das Sessões abaixo: ");
         SessaoDao sessaoDao = new SessaoDaoBd();
         SecaoUI secaoUI = new SecaoUI();
-        secaoUI.listaSessoesCadastradas();
+        secaoUI.listaSessoesCadastradasDisponiveisParaVenda();
 
         int id_sessao = Console.lerInt("Digite o ID da sessão desejada: ");
         Secao sessao = sessaoDao.buscaPorID(id_sessao);
@@ -153,7 +153,7 @@ public class VendaUI {
                     "\n---------------------------");
         }else {
             System.out.println("\n------------------------------------------" +
-                    "Venda Cancelada ou ingresso indisponivel!!!" +
+                    "\nVenda Cancelada ou ingresso indisponivel!!!" +
                     "\n------------------------------------------");
         }
     }
