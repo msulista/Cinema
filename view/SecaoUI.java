@@ -147,7 +147,7 @@ public class SecaoUI {
                     String.format("%-20s", DateUtil.dateToStringDate(secao.getFilme().getDataInicio())) + "\t" +
                     String.format("%-20s", DateUtil.dateToStringDate(secao.getFilme().getDataTermino())) + "\t" +
                     String.format("%-20s", secao.getValor()) + "\t" +
-                    String.format("%-20s", secao.getSala().getQtdAssentos()));
+                    String.format("%-20s", secao.getContadorDeCadeirasDisponiveis()));
         System.out.println("\n Informe as alterações:");
         System.out.println("Escolha um dos filme abaixo: ");
         new FilmeUI(listaFilmes).listaFilmesCadastrados();
@@ -201,7 +201,7 @@ public class SecaoUI {
                     String.format("%-20s", DateUtil.dateToStringDate(secao.getFilme().getDataInicio())) + "\t" +
                     String.format("%-20s", DateUtil.dateToStringDate(secao.getFilme().getDataTermino())) + "\t" +
                     String.format("%-20s", secao.getValor()) + "\t" +
-                    String.format("%-20s", secao.getSala().getQtdAssentos()));
+                    String.format("%-20s", secao.getContadorDeCadeirasDisponiveis()));
 
         int confirma = Console.lerInt("\n Deseja realmente deletar este filme? 1- Sim 2 - Não ");
         if (confirma == 1){
@@ -233,7 +233,7 @@ public class SecaoUI {
                     String.format("%-20s", DateUtil.dateToStringDate(secao.getFilme().getDataInicio())) + "\t" +
                     String.format("%-20s", DateUtil.dateToStringDate(secao.getFilme().getDataTermino())) + "\t" +
                     String.format("%-20s", secao.getValor()) + "\t" +
-                    String.format("%-20s", secao.getSala().getQtdAssentos()));
+                    String.format("%-20s", secao.getContadorDeCadeirasDisponiveis()));
         }
     }
 
@@ -263,7 +263,7 @@ public class SecaoUI {
                     String.format("%-20s", DateUtil.dateToStringDate(secao.getFilme().getDataInicio())) + "\t" +
                     String.format("%-20s", DateUtil.dateToStringDate(secao.getFilme().getDataTermino())) + "\t" +
                     String.format("%-20s", secao.getValor()) + "\t" +
-                    String.format("%-20s", secao.getSala().getQtdAssentos()));
+                    String.format("%-20s", secao.getContadorDeCadeirasDisponiveis()));
         }
     }
 }

@@ -90,6 +90,31 @@ public class SessaoDaoBd implements SessaoDao{
     }
 
     @Override
+    public void diminuiAssentosDisponiveis(Secao secao) {
+
+        SalaDao salaDao = new SalaDaoBd();
+        FilmeDao filmeDao = new FilmeDaoBd();
+        //int id_sala = salaDao.retornaIDSala(numSala);
+        //int id_filme = filmeDao.retornaIDFilme(codFilme);
+        int vendeCadeira = secao.getContadorDeCadeirasDisponiveis() - 1;
+
+        String sql = "UPDATE Sessao SET cont_cadeira=? WHERE id_sessao = ?";
+        try {
+            conexao = ConnectionFactory.getConnection();
+            comando = conexao.prepareStatement(sql);
+            comando.setInt(1, vendeCadeira);
+            comando.setInt(2, secao.getId());
+            comando.executeUpdate();
+            conexao.close();
+        }catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
     public Secao buscaSessaoPorFilmeEHorario(int codFilme, String horario) {
         FilmeDao filmeDao = new FilmeDaoBd();
         SalaDao salaDao = new SalaDaoBd();
@@ -178,7 +203,9 @@ public class SessaoDaoBd implements SessaoDao{
                 secao = new Secao(salaDao.buscaPorID(resultado.getInt("id_sala")),
                         filmeDao.buscaPorID(resultado.getInt("id_filme")),
                         DateUtil.stringToHour(resultado.getString("horario")),
-                        resultado.getDouble("valor"));
+                        resultado.getDouble("valor"),
+                        resultado.getInt("id_sessao"),
+                        resultado.getInt("cont_cadeira"));
             }
             conexao.close();
         } catch (SQLException e) {

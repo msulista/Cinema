@@ -23,6 +23,9 @@ public class VendaDaoBd implements VendaDao {
 
     @Override
     public void inserir(Venda venda, Date data, String hora, int id_sessao) {
+        SessaoDao sessaoDao = new SessaoDaoBd();
+        sessaoDao.diminuiAssentosDisponiveis(sessaoDao.buscaPorID(id_sessao));
+
         String sql = "INSERT INTO Venda (valor_venda, data_venda, hora_venda, id_sessao) VALUES(?,?,?,?)";
         try {
             conexao = ConnectionFactory.getConnection();
