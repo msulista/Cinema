@@ -1,6 +1,8 @@
 package CineUp;
 
+import controller.FilmeController;
 import view.MainUI;
+import view.janela.JanelaCrud;
 
 /**
  * Created by marcus.rodrigues on 30/03/2015.
@@ -11,6 +13,9 @@ public class MainCineUp {
 
     public static void main(String[] args) {
 
-        new MainUI().executar();
+       // new MainUI().executar();
+        FilmeController filmeController = new FilmeController();
+        JanelaCrud janelaCrud = new JanelaCrud(filmeController);
+        filmeController.setJanela(janelaCrud);
     }
 }

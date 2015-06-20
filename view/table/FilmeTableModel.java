@@ -1,18 +1,24 @@
-package view;
+package view.table;
 
 import model.Filme;
 
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by marcus.rodrigues on 18/06/2015.
+ * Created by marcus.rodrigues on 20/06/2015.
  */
-public class FilmeTableModel  extends AbstractTableModel{
+public class FilmeTableModel extends AbstractTableModel {
 
     private String[] header;
     private List<Filme> filmes;
+    private JTable table1;
+    private JButton insereButton;
+    private JButton alteraButton;
+    private JButton deletaButton;
+    private JButton voltarButton;
 
     public FilmeTableModel() {
         this.header = new String[]{"Código", "Titulo", "Genero", "Sinopse", "Data de Inicio", "Data de Termino"};

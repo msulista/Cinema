@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="view.form.FilmePainelFormulario">
+  <grid id="27dc6" layout-manager="GridLayoutManager" row-count="19" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="500" height="464"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="34686" class="javax.swing.JButton" binding="salvarButton" default-binding="true">
+        <constraints>
+          <grid row="18" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Salvar"/>
+        </properties>
+      </component>
+      <hspacer id="4000b">
+        <constraints>
+          <grid row="18" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </hspacer>
+      <component id="5a0a2" class="javax.swing.JButton" binding="voltarButton" default-binding="true">
+        <constraints>
+          <grid row="18" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Voltar"/>
+        </properties>
+      </component>
+      <component id="2a557" class="javax.swing.JTextField" binding="codTextField" default-binding="true">
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Cod"/>
+        </properties>
+      </component>
+      <component id="6b58a" class="javax.swing.JTextField" binding="tituloTextField" default-binding="true">
+        <constraints>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Titulo"/>
+        </properties>
+      </component>
+      <component id="d8fe6" class="javax.swing.JTextField" binding="generoTextField" default-binding="true">
+        <constraints>
+          <grid row="3" column="1" row-span="4" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Genero"/>
+        </properties>
+      </component>
+      <component id="1c1c4" class="javax.swing.JTextField" binding="sinopseTextField" default-binding="true">
+        <constraints>
+          <grid row="7" column="1" row-span="4" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Sinopse"/>
+        </properties>
+      </component>
+      <component id="3290f" class="javax.swing.JTextField" binding="dataInicioTextField" default-binding="true">
+        <constraints>
+          <grid row="11" column="1" row-span="4" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Data Inicio"/>
+        </properties>
+      </component>
+      <component id="b314b" class="javax.swing.JTextField" binding="dataFinalTextField" default-binding="true">
+        <constraints>
+          <grid row="15" column="1" row-span="3" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Data Final"/>
+        </properties>
+      </component>
+      <component id="6e171" class="javax.swing.JLabel" binding="labelPainelFormulario">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Cadastro de filme"/>
+        </properties>
+      </component>
+      <component id="e243" class="javax.swing.JLabel" binding="codLabel">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Cód.:"/>
+        </properties>
+      </component>
+      <component id="b732c" class="javax.swing.JLabel" binding="tituloLabel">
+        <constraints>
+          <grid row="2" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Titulo: "/>
+        </properties>
+      </component>
+      <component id="23601" class="javax.swing.JLabel" binding="sinopseLabel">
+        <constraints>
+          <grid row="8" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Sinopse: "/>
+        </properties>
+      </component>
+      <component id="4faac" class="javax.swing.JLabel" binding="dataInicioLabel">
+        <constraints>
+          <grid row="12" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Data Inicio: "/>
+        </properties>
+      </component>
+      <component id="e019b" class="javax.swing.JLabel" binding="dataFinalLabel">
+        <constraints>
+          <grid row="16" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Data Final: "/>
+        </properties>
+      </component>
+      <component id="396b7" class="javax.swing.JLabel" binding="generoLabel">
+        <constraints>
+          <grid row="4" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Genero: "/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
